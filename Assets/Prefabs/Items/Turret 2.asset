@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0cb06458c618c4db781e9faead6c1f, type: 3}
+  m_Name: Turret 2
+  m_EditorClassIdentifier: 
+  weaponPref: {fileID: 1504785889957690657, guid: 6e7fe0606a97e4d4ea4e33959767e825, type: 3}
+  weaponSpeed: 3.3
+  weaponDamage: 10
+  weaponRange: 10
+  leftHanded: 0
+  isRangeWeapon: 1
+  projectile: {fileID: 3414653883328209677, guid: 217540d8b0466934b9c1d7ea46774ffa, type: 3}
