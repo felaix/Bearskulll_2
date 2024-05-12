@@ -233,6 +233,6 @@ public class Fighter : MonoBehaviour, IAction
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _weapon.weaponRange);
+        if (_weapon != null) Gizmos.DrawWireSphere(transform.position, _weapon.weaponRange);
     }
 }

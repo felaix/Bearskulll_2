@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class BossController : MonoBehaviour
@@ -43,13 +42,7 @@ public class BossController : MonoBehaviour
         hp = GetComponent<Health>();
         fighter = GetComponent<Fighter>();
 
-        //if (dialogueTrigger == null) { CreateWarningLog("No Dialogue Trigger found"); return; }
-        //if (hp == null) { CreateWarningLog("HP not found"); return; }
-        //if (fighter == null) { CreateWarningLog("Fighter not found"); return; }
-        //if (cam == null) { CreateWarningLog("Camera Controller not found"); return; }
-        //if (animator == null) { CreateWarningLog("Animator not found"); return; }
-        //if (player == null) { CreateWarningLog("Player not found"); return; }
-        //if (model == null) { CreateWarningLog("Model not found"); return; }
+        TriggerBoss();
     }
 
     private void ActivateAllShields() => shieldList.ForEach(shield => { shield.ActivateInvincibility(); });
@@ -70,7 +63,8 @@ public class BossController : MonoBehaviour
     {
         int areaDmgCounter = 0;
 
-        ActivateAllShields();
+        Debug.Log("Current state: " + state);
+        //ActivateAllShields();
 
         while (state == 0)
         {
@@ -86,15 +80,14 @@ public class BossController : MonoBehaviour
 
             animator.Play("Dance");
 
-
-            if (hp._curHP <= 180f)
+            if (hp._curHP <= 260f)
             {
-                //CreateWarningLog("Witch - State 2 start!");
+                Debug.Log("Witch State 2");
+                //CreateWarningLog("Witch - State 2 start!"); 
                 //dialogueSystem.CreateDialogue(new string[1] { "ARRGHHH!!!" }, witchFace, 20f);
                 dialogueSystem.CreateDialogue(new string[3] { $"ARGHH!%!&%#!", "LORTNOC YM... NI EB AERA EHT TEL...", "YOU WILL REGRET THIS" }, witchFace, 40f);
 
                 state = 1;
-                break;
             }
 
             yield return new WaitForSeconds(2f);
@@ -107,6 +100,8 @@ public class BossController : MonoBehaviour
             // WHILE HP > 120
             // the witch gets angry and casts area dmg spells.
 
+            Debug.Log("State 2, area dmg counter: " + areaDmgCounter);
+
             active = true;
 
             areaDmgCounter++;
@@ -115,21 +110,18 @@ public class BossController : MonoBehaviour
             Vector3 targetPos = GetTargetPosition();
 
             model.LookAt(targetPos);
-
-            yield return new WaitForSeconds(.5f);
-            model.LookAt(targetPos);
             cam.ShakeCamera(10f);
+            Debug.Log("Shake camera");
+            yield return new WaitForSeconds(.5f);
 
             // Spawn Area DMG FX
             if (areaDamageFX != null) Instantiate(areaDamageFX, targetPos, Quaternion.identity);
-
-            yield return new WaitForSeconds(1.5f);
-
-            model.LookAt(targetPos);
+            Debug.Log("spawn area dmg");
 
             if (hp._curHP <= 140f)
             {
 
+                Debug.Log("Witch State 3");
                 dialogueSystem.CreateDialogue(new string[1] { "The witch is stunned! The shields!! NOW!" }, witchFace, 30f);
 
                 fighter.enabled = false;
@@ -141,8 +133,10 @@ public class BossController : MonoBehaviour
                 DeactivateAllShields();
 
                 state = 2;
-                break;
             }
+
+            yield return new WaitForSeconds(2f);
+
         }
 
         while (state == 2)
@@ -186,7 +180,6 @@ public class BossController : MonoBehaviour
 
 
                 state = 3;
-                break;
             }
         }
 
@@ -210,10 +203,8 @@ public class BossController : MonoBehaviour
                 witchFace,
                 20f);
                 state = 4;
-                break;
             }
             state = 4;
-            break;
         }
 
         animator.Play("Dance");

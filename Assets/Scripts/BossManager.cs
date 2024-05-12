@@ -35,6 +35,7 @@ public class BossManager : MonoBehaviour
     [SerializeField] Text EndTextEN;
     public GameObject BridgeStop;
 
+    public BossController bossController;
     private void Awake()
     {
         Instance = this;
@@ -53,7 +54,7 @@ public class BossManager : MonoBehaviour
         {
 
             PlayerIsInArena = true;
-
+            bossController.TriggerBoss();
         }
     }
     private void Update()
@@ -61,7 +62,6 @@ public class BossManager : MonoBehaviour
 
         if (PlayerIsInArena && !bossHealth.isDead)
         {
-
             int rng = Random.Range(0, 5);
 
             if (enemylist.Count < 2 && !_spawning)
