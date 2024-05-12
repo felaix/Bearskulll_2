@@ -14279,8 +14279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7292789012903092637, guid: ae0ed5024b8e14a41ae532b7ffa2277a, type: 3}
       propertyPath: speachlines.Array.data[0]
-      value: "Hier, diese Tr\xE4nke heilen dich! Ich zeige dir Dinge an, die dir
-        vielleicht n\xFCtzlich sind.  "
+      value: Hier, ein Schild! Benutze es mit RMB
       objectReference: {fileID: 0}
     - target: {fileID: 7292789012903092637, guid: ae0ed5024b8e14a41ae532b7ffa2277a, type: 3}
       propertyPath: speachlines.Array.data[1]
@@ -29159,8 +29158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7292789012903092637, guid: ae0ed5024b8e14a41ae532b7ffa2277a, type: 3}
       propertyPath: speachlines.Array.data[0]
-      value: 'Here, these potions will heal you! I''ll show you things that might
-        be useful to you. '
+      value: Here, a shield! Press RMB to use it.
       objectReference: {fileID: 0}
     - target: {fileID: 7292789012903092637, guid: ae0ed5024b8e14a41ae532b7ffa2277a, type: 3}
       propertyPath: speachlines.Array.data[1]
@@ -67101,15 +67099,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.46799
+      value: 37.467987
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8636713
+      value: 1.8636751
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45.156563
+      value: 45.156578
       objectReference: {fileID: 0}
     - target: {fileID: 2021144913, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_ChildCameras.Array.size

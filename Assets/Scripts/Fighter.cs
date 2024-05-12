@@ -41,8 +41,6 @@ public class Fighter : MonoBehaviour, IAction
         EquipWeapon(_weapon);
     }
 
-
-
     private void Update()
     {
         if (knockedOut && !GetComponent<Health>().isDead)

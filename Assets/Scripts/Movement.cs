@@ -24,8 +24,11 @@ public class Movement : MonoBehaviour, IAction
 
 
     public bool InvertMainMap = false;
+
+    private Fighter fighter;
     private void Start()
     {
+        fighter = GetComponent<Fighter>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         maxSpeed = navMeshAgent.speed;
         WASDACTIVATED = SaveGame.Load<bool>("WASDACTIVATED");
@@ -124,6 +127,8 @@ public class Movement : MonoBehaviour, IAction
         { 
             _anim.SetFloat("movespeed", 1);
         }
+
+        if (fighter.IsBlocking()) _anim.Play("Block");
 
     }
 

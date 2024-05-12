@@ -54,6 +54,10 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
+
+        if (fighter.IsBlocking()) isInvincible = true;
+        else isInvincible = false;
+
         if (_hpBarImage)
             UIUpdate();
 
@@ -61,22 +65,22 @@ public class Health : MonoBehaviour
         {
             if (_curHP <= 30)
             {
-              //  vignette.enabled.value = true;
-             //   vignette.color.value = Color.red;
+                //  vignette.enabled.value = true;
+                //   vignette.color.value = Color.red;
                 // Pulsing effect with minimum intensity
-            //    float pulsingSpeed = 2f;
-             //   float minimumIntensity = 0.67f;
-           //     float pulsingRange = 0.33f;
-              //  vignette.intensity.value = minimumIntensity + pulsingRange * Mathf.Abs(Mathf.Sin(Time.time * pulsingSpeed));
+                //    float pulsingSpeed = 2f;
+                //   float minimumIntensity = 0.67f;
+                //     float pulsingRange = 0.33f;
+                //  vignette.intensity.value = minimumIntensity + pulsingRange * Mathf.Abs(Mathf.Sin(Time.time * pulsingSpeed));
             }
             else
             {
                 // Normal black vignette, no pulsing
-            //    vignette.color.value = Color.black;
-           //     vignette.intensity.value = 0.67f; // adjust this as per your needs
+                //    vignette.color.value = Color.black;
+                //     vignette.intensity.value = 0.67f; // adjust this as per your needs
             }
         }
-        
+
     }
 
     public void TakeDamage(int damage, bool weapon)
@@ -90,7 +94,7 @@ public class Health : MonoBehaviour
             _curHP -= damage;
         }
 
-        if(!IsChest)
+        if (!IsChest)
         {
             _curHP -= damage;
 
@@ -99,13 +103,13 @@ public class Health : MonoBehaviour
 
         if (_curHP <= 0)
         {
-            if(IsChestHuge)
+            if (IsChestHuge)
             {
                 Archievments.Instance.UnlockAchievement("BOX_MYSTERY");
             }
             _curHP = 0;
             _anim.SetBool("dead", true);
-         
+
             GetComponent<Collider>().enabled = false;
             if (!isPlayer && !isDead)
             {
@@ -114,14 +118,14 @@ public class Health : MonoBehaviour
             else
                 isDead = true;
         }
-        if(isPlayer)
+        if (isPlayer)
             impulse.GenerateImpulse();
 
 
     }
     public void TakeHealing(int healamount)
     {
-        
+
         _curHP += healamount;
         if (_curHP >= _HP)
         {
@@ -134,12 +138,12 @@ public class Health : MonoBehaviour
     {
         if (isPlayer) SetHPBarColor();
         _hpBarImage.fillAmount = (float)_curHP / (float)_HP;
-        if(isPlayer)
+        if (isPlayer)
             _cgDmg.alpha = 0.7f - (float)_curHP / (float)_HP;
     }
 
     IEnumerator DeathFX()
-        
+
     {
         isDead = true;
         Archievments.Instance.IncrementStat();
@@ -152,13 +156,13 @@ public class Health : MonoBehaviour
 
 
         float speed = 2f;
-        if(IsChest)
+        if (IsChest)
         {
             speed = 0.2f;
         }
 
         yield return new WaitForSeconds(speed);
-        Destroy(gameObject, speed); 
+        Destroy(gameObject, speed);
         yield return new WaitForSeconds(speed - 0.1f);
         Instantiate(deathFX, _FXtransform.position, Quaternion.identity);
     }
