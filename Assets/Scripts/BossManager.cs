@@ -7,6 +7,8 @@ using Steamworks;
 
 public class BossManager : MonoBehaviour
 {
+
+    public static BossManager Instance;
     [Header("StartFight")]
     public bool PlayerIsInArena;
     public GameObject Player;
@@ -33,9 +35,18 @@ public class BossManager : MonoBehaviour
     [SerializeField] Text EndTextEN;
     public GameObject BridgeStop;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+
+    public void DeactivateSpawning() => _spawning = true;
+    public void ActivateSpawning() => _spawning = false;
+
     private void OnTriggerEnter(Collider other)
     {
-            BridgeStop.SetActive(true);
+        BridgeStop.SetActive(true);
 
         _saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
         if (other.GetComponent<Player>() != null)
@@ -70,7 +81,7 @@ public class BossManager : MonoBehaviour
 
         }
         if (_ending)
-        {       
+        {
             for (int i = 0; i < enemylist.Count; i++)
             {
                 Destroy(enemylist[i]);
@@ -113,8 +124,8 @@ public class BossManager : MonoBehaviour
 
             int currentStatValue;
             bool gotStat = SteamUserStats.GetStat("SOULS", out currentStatValue);
-           
-                EndTextEN.text = "You have " + currentStatValue + " Souls freed.";
+
+            EndTextEN.text = "You have " + currentStatValue + " Souls freed.";
             Debug.Log("GameEnd");
             _faderAnimEN.SetTrigger("End");
             PlayerUI.SetActive(false);

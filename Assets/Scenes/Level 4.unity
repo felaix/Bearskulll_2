@@ -443,7 +443,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 270909862, guid: 37ec61fa91e4f6f4baa9799b10d9111b, type: 3}
   m_PrefabInstance: {fileID: 5376818}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1757474526}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd08fae5f101c7a4088d15398a4681f1, type: 3}
@@ -2473,15 +2473,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.86581
+      value: 14.865807
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0423803
+      value: 2.0423784
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6496134
+      value: -0.64961433
       objectReference: {fileID: 0}
     - target: {fileID: 2021144913, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_Priority
@@ -25793,6 +25793,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3645546dcf444614288d73fe338b176b, type: 3}
+--- !u!1 &1424033245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3736574780917495715, guid: 37ec61fa91e4f6f4baa9799b10d9111b, type: 3}
+  m_PrefabInstance: {fileID: 5376818}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1425852390
 GameObject:
   m_ObjectHideFlags: 0
@@ -31849,6 +31854,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e07a1fa6b0ae775429078ccfa515eb0d, type: 3}
+--- !u!1 &1757474526 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 964926885334446234, guid: 37ec61fa91e4f6f4baa9799b10d9111b, type: 3}
+  m_PrefabInstance: {fileID: 5376818}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1757474534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757474526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b879b8f8f258643beeb8d2f344750a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speachlines: []
+  faceImage: {fileID: 21300000, guid: 7c6200cde1fdfcf4ca4b20fdc19e855d, type: 3}
+  _destroyAfterTrigger: 0
+  textSpeed: 200
+--- !u!114 &1757474535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757474526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb09f27816dcda4097b63446726db2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areaDamageFX: {fileID: 953237081607846361, guid: ebdfd457537acd44b8f168f26a024607, type: 3}
+  nukeFX: {fileID: 1639891835088740, guid: d30546528f8d747479f6cb7e54a15a05, type: 3}
+  stunnedFX: {fileID: 1424033245}
+  dialogueSystem: {fileID: 1757474534}
+  witchFace: {fileID: 21300000, guid: 7c6200cde1fdfcf4ca4b20fdc19e855d, type: 3}
+  shieldList: []
 --- !u!1001 &1759546757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53211,6 +53255,9 @@ MonoBehaviour:
   _FXtransform: {fileID: 0}
   healFX: {fileID: 7250464115289209279, guid: a27ca3ae2964e454b8c82cf8fbe8811e, type: 3}
   impulse: {fileID: 8403174880880612616}
+  IsChest: 0
+  IsChestHuge: 0
+  isInvincible: 0
 --- !u!195 &1707152512160524218
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -53287,6 +53334,7 @@ MonoBehaviour:
   maxSpeed: 4.5
   isKnockback: 0
   isPlayer: 1
+  IsWasd: 0
   PlayerRB: {fileID: 4560696686768238702}
   InvertMainMap: 0
 --- !u!4 &1707152512160524223
@@ -71612,6 +71660,7 @@ MonoBehaviour:
   useSkill: 0
   _SkillactivFX: {fileID: 943224061096014250}
   _knockOutFX: {fileID: 6862847980516129312}
+  fist: {fileID: 0}
 --- !u!224 &8048530408308299881
 RectTransform:
   m_ObjectHideFlags: 0

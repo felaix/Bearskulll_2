@@ -164,7 +164,7 @@ public class Health : MonoBehaviour
         yield return new WaitForSeconds(speed);
         Destroy(gameObject, speed);
         yield return new WaitForSeconds(speed - 0.1f);
-        Instantiate(deathFX, _FXtransform.position, Quaternion.identity);
+        if (deathFX != null && _FXtransform != null) Instantiate(deathFX, _FXtransform.position, Quaternion.identity);
     }
 
 }
