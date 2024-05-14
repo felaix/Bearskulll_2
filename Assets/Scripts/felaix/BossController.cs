@@ -95,19 +95,19 @@ public class BossController : MonoBehaviour
 
             fighter.enabled = false;
 
-            if (hp._curHP < 300f)
+            if (hp._curHP < hp._HP)
             {
                 fighter.enabled = true;
             }
 
-            if (hp._curHP <= 250f)
+            if (hp._HP - hp._curHP >= 60f)
             {
                 Debug.Log("Witch State 2");
                 //CreateWarningLog("Witch - State 2 start!"); 
                 //dialogueSystem.CreateDialogue(new string[1] { "ARRGHHH!!!" }, witchFace, 20f);
 
-                if (isEnglish) dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "YOU WILL REGRET THIS" }, witchFace, 40f);
-                else dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "DU WIRST DAS BEREUEN" }, witchFace, 40f);
+                //if (isEnglish) dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "YOU WILL REGRET THIS" }, witchFace, 40f);
+                //else dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "DU WIRST DAS BEREUEN" }, witchFace, 40f);
                 fighter.enabled = true;
 
                 state = 1;
@@ -135,13 +135,12 @@ public class BossController : MonoBehaviour
             model.LookAt(targetPos);
             cam.ShakeCamera(10f);
             Debug.Log("Shake camera");
-            yield return new WaitForSeconds(.5f);
 
             // Spawn Area DMG FX
             if (areaDamageFX != null) Instantiate(areaDamageFX, targetPos, Quaternion.identity);
             Debug.Log("spawn area dmg");
 
-            if (hp._curHP <= 140f)
+            if (hp._HP - hp._curHP >= 120f)
             {
 
                 Debug.Log("Witch State 3");
@@ -191,7 +190,7 @@ public class BossController : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
 
-            if (hp._curHP <= 60f)
+            if (hp._curHP <= 30f)
             {
                 //! Start state 4
 
@@ -228,6 +227,9 @@ public class BossController : MonoBehaviour
             }
             state = 4;
         }
+
+        BossManager.Instance.ActivateSpawning();
+
 
         animator.Play("Dance");
         active = false;

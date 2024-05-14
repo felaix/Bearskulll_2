@@ -11,6 +11,13 @@ public class SkipButton : MonoBehaviour
     [SerializeField] private CinematicPlayerControlltrigger dollyCam;
     [SerializeField] private CinematicTrigger director;
 
+    private void Update()
+    {
+        if (director == null) return;
+
+        if (director._triggerSet) btn.interactable = false;
+        else btn.interactable = true;
+    }
 
     private void Start()
     {
@@ -26,9 +33,8 @@ public class SkipButton : MonoBehaviour
 
     public void SkipCinematic()
     {
-        if (dollyCam == null || director == null) return;
-        dollyCam.giveControlls();
-        director.SkipCinematic();
+        if (dollyCam != null) dollyCam.giveControlls();
+        if (director != null) director.SkipCinematic();
         gameObject.SetActive(false);
     }
 }
