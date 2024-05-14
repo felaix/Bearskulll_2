@@ -1,3 +1,4 @@
+using BayatGames.SaveGameFree;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +30,8 @@ public class BossController : MonoBehaviour
     [SerializeField] private List<Health> shieldList;
     [SerializeField] private Transform shieldsParent;
 
+    private bool isEnglish = false;
+
     private void Awake()
     {
         instance = this;
@@ -44,6 +47,7 @@ public class BossController : MonoBehaviour
         hp = GetComponent<Health>();
         fighter = GetComponent<Fighter>();
 
+        isEnglish = IsEnglish();
         TriggerBoss();
     }
 
@@ -51,9 +55,9 @@ public class BossController : MonoBehaviour
     {
         
         shieldList.ForEach(shield => { shield.ActivateInvincibility(); });
-        shieldsParent.DOLocalMoveY(-30f, 1f);
+        shieldsParent.DOLocalMoveY(-10f, 1f);
     }
-    private void DeactivateAllShields() {shieldList.ForEach(shield => { shield.DeactivateInvincibility(); }); shieldsParent.DOLocalMoveY(-1.8f, 1f); }
+    private void DeactivateAllShields() {shieldList.ForEach(shield => { shield.DeactivateInvincibility(); }); shieldsParent.DOLocalMoveY(-1.8f, 2f).SetEase(Ease.InBounce); }
 
     public void OnShieldDestroyed()
     {
@@ -65,6 +69,8 @@ public class BossController : MonoBehaviour
     {
         if (!active) { ActivateAllShields(); StartCoroutine("BossBehaviour"); }
     }
+
+    private bool IsEnglish() => SaveGame.Load<string>("Language") == "English";
     private Vector3 GetTargetPosition() => player.transform.position;
     private IEnumerator BossBehaviour()
     {
@@ -94,12 +100,14 @@ public class BossController : MonoBehaviour
                 fighter.enabled = true;
             }
 
-            if (hp._curHP <= 260f)
+            if (hp._curHP <= 250f)
             {
                 Debug.Log("Witch State 2");
                 //CreateWarningLog("Witch - State 2 start!"); 
                 //dialogueSystem.CreateDialogue(new string[1] { "ARRGHHH!!!" }, witchFace, 20f);
-                dialogueSystem.CreateDialogue(new string[3] { $"ARGHH!%!&%#!", "LORTNOC YM... NI EB AERA EHT TEL...", "YOU WILL REGRET THIS" }, witchFace, 40f);
+
+                if (isEnglish) dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "YOU WILL REGRET THIS" }, witchFace, 40f);
+                else dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "DU WIRST DAS BEREUEN" }, witchFace, 40f);
                 fighter.enabled = true;
 
                 state = 1;
@@ -137,7 +145,8 @@ public class BossController : MonoBehaviour
             {
 
                 Debug.Log("Witch State 3");
-                dialogueSystem.CreateDialogue(new string[1] { "The witch is stunned! The shields!! NOW!" }, witchFace, 30f);
+                if (isEnglish) dialogueSystem.CreateDialogue(new string[1] { "The witch is stunned! The shields!! NOW!" }, witchFace, 30f);
+                else dialogueSystem.CreateDialogue(new string[1] { "Die Hexe kann sich nicht bewegen! Die Schilder!! Jetzt!" }, witchFace, 30f);
 
                 fighter.enabled = false;
 
@@ -191,8 +200,8 @@ public class BossController : MonoBehaviour
                 //BossManager.Instance.ActivateSpawning();
                 animator.StartPlayback();
                 //ActivateAllShields();
-                dialogueSystem.CreateDialogue(new string[1] { $"NOOO...." }, witchFace, 20f);
-
+                if (isEnglish) dialogueSystem.CreateDialogue(new string[1] { $"NOOO...." }, witchFace, 20f);
+                else dialogueSystem.CreateDialogue(new string[1] { $"NEEINN...." }, witchFace, 20f);
 
                 state = 3;
             }
@@ -213,10 +222,8 @@ public class BossController : MonoBehaviour
             {
                 // instantiate nuke
                 if (nukeFX != null) { Instantiate(nukeFX, model.transform.position, Quaternion.identity); }
-                dialogueSystem.CreateDialogue(
-                new string[1] { "NNNOOOOO!!!" },
-                witchFace,
-                20f);
+                if (isEnglish) dialogueSystem.CreateDialogue(new string[1] { "NNNOOOOO!!!" }, witchFace, 20f);
+                else dialogueSystem.CreateDialogue(new string[1] { "NNEEEINNN!!!" }, witchFace, 20f);
                 state = 4;
             }
             state = 4;
