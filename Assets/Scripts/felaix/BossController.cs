@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class BossController : MonoBehaviour
 {
     public static BossController instance { get; private set; }
 
-    private int state = -1;
+    private int state = 0;
     private GameObject player;
 
     private bool active = false;
@@ -26,6 +27,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private DialogSystem dialogueSystem;
     [SerializeField] private Sprite witchFace;
     [SerializeField] private List<Health> shieldList;
+    [SerializeField] private Transform shieldsParent;
 
     private void Awake()
     {
@@ -49,10 +51,9 @@ public class BossController : MonoBehaviour
     {
         
         shieldList.ForEach(shield => { shield.ActivateInvincibility(); });
-        
-    
+        shieldsParent.DOLocalMoveY(-30f, 1f);
     }
-    private void DeactivateAllShields() => shieldList.ForEach(shield => { shield.DeactivateInvincibility(); });
+    private void DeactivateAllShields() {shieldList.ForEach(shield => { shield.DeactivateInvincibility(); }); shieldsParent.DOLocalMoveY(-1.8f, 1f); }
 
     public void OnShieldDestroyed()
     {
@@ -68,10 +69,6 @@ public class BossController : MonoBehaviour
     private IEnumerator BossBehaviour()
     {
         int areaDmgCounter = 0;
-
-        fighter.enabled = false;
-        yield return new WaitForSeconds(30f);
-        fighter.enabled = true;
 
         Debug.Log("Current state: " + state);
         //ActivateAllShields();
@@ -90,12 +87,20 @@ public class BossController : MonoBehaviour
 
             animator.Play("Dance");
 
+            fighter.enabled = false;
+
+            if (hp._curHP < 300f)
+            {
+                fighter.enabled = true;
+            }
+
             if (hp._curHP <= 260f)
             {
                 Debug.Log("Witch State 2");
                 //CreateWarningLog("Witch - State 2 start!"); 
                 //dialogueSystem.CreateDialogue(new string[1] { "ARRGHHH!!!" }, witchFace, 20f);
                 dialogueSystem.CreateDialogue(new string[3] { $"ARGHH!%!&%#!", "LORTNOC YM... NI EB AERA EHT TEL...", "YOU WILL REGRET THIS" }, witchFace, 40f);
+                fighter.enabled = true;
 
                 state = 1;
             }

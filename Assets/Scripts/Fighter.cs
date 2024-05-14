@@ -46,11 +46,11 @@ public class Fighter : MonoBehaviour, IAction
         if (knockedOut && !GetComponent<Health>().isDead)
         {
             Cancel();
-            _knockOutFX.SetActive(true);
+            if (_knockOutFX != null) _knockOutFX.SetActive(true);
             return;
         }
         else
-            _knockOutFX.SetActive(false);
+            if (_knockOutFX != null) _knockOutFX.SetActive(false);
 
         if (_target != null && _target.isDead)
             Cancel();

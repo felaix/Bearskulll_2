@@ -2611,15 +2611,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.865807
+      value: 14.86581
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0423784
+      value: 2.0423803
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.64961433
+      value: -0.6496134
       objectReference: {fileID: 0}
     - target: {fileID: 2021144913, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_Priority
@@ -15948,7 +15948,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688673609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.848278, y: -1.93, z: 3.9381332}
+  m_LocalPosition: {x: -35.848278, y: -1.8, z: 3.9381332}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -32309,6 +32309,7 @@ MonoBehaviour:
   - {fileID: 1517997912}
   - {fileID: 2030440762}
   - {fileID: 1873043440}
+  shieldsParent: {fileID: 688673610}
 --- !u!1001 &1759546757
 PrefabInstance:
   m_ObjectHideFlags: 0
