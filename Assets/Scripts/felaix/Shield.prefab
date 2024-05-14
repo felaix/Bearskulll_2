@@ -27,6 +27,22 @@ PrefabInstance:
       propertyPath: m_Color.g
       value: 0.95084643
       objectReference: {fileID: 0}
+    - target: {fileID: 1406468634609797874, guid: a88a71fcb8e5dd0458998fc5daee15ec, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406468634609797874, guid: a88a71fcb8e5dd0458998fc5daee15ec, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406468634609797874, guid: a88a71fcb8e5dd0458998fc5daee15ec, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406468634609797874, guid: a88a71fcb8e5dd0458998fc5daee15ec, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.89
+      objectReference: {fileID: 0}
     - target: {fileID: 1862221242884096976, guid: a88a71fcb8e5dd0458998fc5daee15ec, type: 3}
       propertyPath: raycastCamera
       value: 
