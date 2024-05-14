@@ -6,7 +6,7 @@ public class BossController : MonoBehaviour
 {
     public static BossController instance { get; private set; }
 
-    private int state = 0;
+    private int state = -1;
     private GameObject player;
 
     private bool active = false;
@@ -45,7 +45,13 @@ public class BossController : MonoBehaviour
         TriggerBoss();
     }
 
-    private void ActivateAllShields() => shieldList.ForEach(shield => { shield.ActivateInvincibility(); });
+    private void ActivateAllShields() 
+    {
+        
+        shieldList.ForEach(shield => { shield.ActivateInvincibility(); });
+        
+    
+    }
     private void DeactivateAllShields() => shieldList.ForEach(shield => { shield.DeactivateInvincibility(); });
 
     public void OnShieldDestroyed()
@@ -62,6 +68,10 @@ public class BossController : MonoBehaviour
     private IEnumerator BossBehaviour()
     {
         int areaDmgCounter = 0;
+
+        fighter.enabled = false;
+        yield return new WaitForSeconds(30f);
+        fighter.enabled = true;
 
         Debug.Log("Current state: " + state);
         //ActivateAllShields();
