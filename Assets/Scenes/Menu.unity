@@ -16953,6 +16953,7 @@ MonoBehaviour:
   impulse: {fileID: 0}
   IsChest: 0
   IsChestHuge: 0
+  isInvincible: 0
 --- !u!114 &1707152511562279715
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using BayatGames.SaveGameFree;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,7 @@ public class Fighter : MonoBehaviour, IAction
     private void Start()
     {
         EquipWeapon(_weapon);
+
     }
 
     private void Update()
@@ -80,6 +82,7 @@ public class Fighter : MonoBehaviour, IAction
     public void EquipWeapon(Weapon _weaponEquip)
     {
         if(_weaponEquip == null) return;
+        Debug.Log("Equip weapon: " +  _weaponEquip);
         _weapon = _weaponEquip;
         _weaponEquip.Spawn(RightHandTransform , LeftHandTransform);
         AudioManager.instance.PlayEffect(EquipSFX);

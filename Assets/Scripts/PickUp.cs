@@ -1,6 +1,4 @@
 using BayatGames.SaveGameFree;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUp : MonoBehaviour
@@ -34,8 +32,12 @@ public class PickUp : MonoBehaviour
                 if (!SaveGame.Exists("HeroSword"))
                 SaveGame.Save<int>("HeroSword", 1);
             }
-
-
+            if (_weapon.name == "Shield")
+            {
+                SaveGame.Save<string>("Weapon", "Shield");
+                if (!SaveGame.Exists("Shield")) 
+                SaveGame.Save<int>("Shield", 1);
+            }
 
             other.GetComponent<Fighter>().EquipWeapon(_weapon);
             Instantiate(_PickUpFX, transform.position, Quaternion.identity);

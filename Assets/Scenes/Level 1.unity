@@ -61091,6 +61091,7 @@ MonoBehaviour:
   HeroSword: {fileID: 11400000, guid: de9763bb2c9ba274bb4ba94ab1ef3f96, type: 2}
   MonsterDagger: {fileID: 11400000, guid: 88921a537b6553a4d9b7670d794b379a, type: 2}
   BossAxe: {fileID: 11400000, guid: 8e1a5abec9184fd439167c0bc7d12971, type: 2}
+  Shield: {fileID: 0}
   Faueste: {fileID: 11400000, guid: 1e6dcff3169f0d145bdbe0bc57ffa17f, type: 2}
   PlayerDeadFighterScript: {fileID: 7977034292727201911}
 --- !u!114 &2045850357
@@ -66815,11 +66816,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8636751
+      value: 1.8636713
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45.156578
+      value: 45.156567
       objectReference: {fileID: 0}
     - target: {fileID: 2021144913, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_ChildCameras.Array.size
@@ -70951,7 +70952,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   RightHandTransform: {fileID: 1707152511419295239}
   LeftHandTransform: {fileID: 1707152512957433345}
-  _weapon: {fileID: 11400000, guid: 1e6dcff3169f0d145bdbe0bc57ffa17f, type: 2}
+  _weapon: {fileID: 0}
   _anim: {fileID: 1707152513179245597}
   _AttackFX: {fileID: 756508636536275686, guid: 9a4051be6ab9f6b488705d995c3ce387, type: 3}
   _AttackFX2: {fileID: 756508636536275686, guid: c415e47d083d66a408c072df980616e5, type: 3}

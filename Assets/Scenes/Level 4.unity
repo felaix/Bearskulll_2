@@ -2611,15 +2611,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.86581
+      value: 14.865807
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0423803
+      value: 2.0423784
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6496134
+      value: -0.64961433
       objectReference: {fileID: 0}
     - target: {fileID: 2021144913, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_Priority
@@ -20890,6 +20890,7 @@ MonoBehaviour:
   HeroSword: {fileID: 11400000, guid: de9763bb2c9ba274bb4ba94ab1ef3f96, type: 2}
   MonsterDagger: {fileID: 11400000, guid: 88921a537b6553a4d9b7670d794b379a, type: 2}
   BossAxe: {fileID: 11400000, guid: 8e1a5abec9184fd439167c0bc7d12971, type: 2}
+  Shield: {fileID: 11400000, guid: 6b73d1bf62fe7b041854251c062afc59, type: 2}
   Faueste: {fileID: 11400000, guid: 1e6dcff3169f0d145bdbe0bc57ffa17f, type: 2}
   PlayerDeadFighterScript: {fileID: 7977034293458685164}
 --- !u!114 &1030825381
@@ -72270,7 +72271,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   RightHandTransform: {fileID: 1707152511766080156}
   LeftHandTransform: {fileID: 1707152512375966362}
-  _weapon: {fileID: 11400000, guid: 1e6dcff3169f0d145bdbe0bc57ffa17f, type: 2}
+  _weapon: {fileID: 11400000, guid: 6b73d1bf62fe7b041854251c062afc59, type: 2}
   _anim: {fileID: 1707152512699420806}
   _AttackFX: {fileID: 756508636536275686, guid: 9a4051be6ab9f6b488705d995c3ce387, type: 3}
   _AttackFX2: {fileID: 756508636536275686, guid: c415e47d083d66a408c072df980616e5, type: 3}

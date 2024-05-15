@@ -27,6 +27,7 @@ public class SaveManager : MonoBehaviour
     public GameObject player;
     public int HeartSave, EnergySave;
     public Weapon WeaponSave;
+    public Weapon Shield;
 
     public int Souls;
     public Text SoulsCount;
@@ -91,6 +92,8 @@ public class SaveManager : MonoBehaviour
         string[] splitLoad = load.Split('|');
       
         player.GetComponent<Fighter>().EquipWeapon(WeaponSave);
+        if (WeaponSave.GetName() == "Shield" && Shield == null) Shield = WeaponSave;
+        if (Shield != null) player.GetComponent<Fighter>().EquipWeapon(Shield);
        
         //tränke zuweisen
         player.GetComponent<Inventory>().heart = int.Parse(splitLoad[0]);

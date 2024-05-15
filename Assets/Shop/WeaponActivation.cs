@@ -12,6 +12,7 @@ public class WeaponActivation : MonoBehaviour
     public Weapon HeroSword;
     public Weapon MonsterDagger;
     public Weapon BossAxe;
+    public Weapon Shield;
     public Weapon Faueste;
 
     public Fighter PlayerDeadFighterScript;
@@ -70,7 +71,6 @@ public class WeaponActivation : MonoBehaviour
 
         }
 
-
         else
         {
 
@@ -79,12 +79,12 @@ public class WeaponActivation : MonoBehaviour
 
         }
 
+        if (SaveGame.Load<string>("Weapon") == "Shield")
+        {
+            PlayerDeadFighterScript.EquipWeapon(Shield);
+        }
 
     }
-
-
-
-
 
     // Update is called once per frame
     void Update()

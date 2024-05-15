@@ -16,6 +16,8 @@ public class Weapon : ScriptableObject
 
     const string weaponName = "Weapon";
 
+    public string GetName() => weaponName;  
+
     public void Spawn(Transform HandTransformR, Transform HandTransformL)
     {
         DestroyOldWeapon(HandTransformR, HandTransformL);
@@ -48,6 +50,8 @@ public class Weapon : ScriptableObject
         //    OldWeapon = handTransformL.Find(weaponName);
         //}
         if (OldWeapon == null) return;
+
+        Debug.Log("Destroy Weapon: " + OldWeapon);
 
         OldWeapon.name = "DestroyedWeapon";
         Destroy(OldWeapon.gameObject);

@@ -45289,6 +45289,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7977034292313634241, guid: 63573aa1f71299242b498060d4a4d278, type: 3}
+      propertyPath: _weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b73d1bf62fe7b041854251c062afc59, type: 2}
+    - target: {fileID: 7977034292313634241, guid: 63573aa1f71299242b498060d4a4d278, type: 3}
       propertyPath: AttackSFX2
       value: 
       objectReference: {fileID: 8300000, guid: 311e53dcc76257840b544b2c08d32f51, type: 3}
