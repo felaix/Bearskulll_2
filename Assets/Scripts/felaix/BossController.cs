@@ -64,6 +64,13 @@ public class BossController : MonoBehaviour
         //Debugger.Instance.CreateWarningLog("Shield Destroyed!");
         //dialogueSystem.CreateDialogue(new string[1] { "STOP IT!!!" }, witchFace, 20f);
         hp.TakeDamage(20, false);
+
+        shieldList.RemoveAt(0);
+
+        if (shieldList.Count == 0)
+        {
+            hp.TakeDamage(400, false);
+        }
     }
     public void TriggerBoss()
     {
@@ -72,6 +79,14 @@ public class BossController : MonoBehaviour
 
     private bool IsEnglish() => SaveGame.Load<string>("Language") == "English";
     private Vector3 GetTargetPosition() => player.transform.position;
+
+    private Vector3 GetRandomNearPosition(Vector3 center, float radius)
+    {
+        float randomX = Random.Range(-radius, radius);
+        float randomZ = Random.Range(-radius, radius);
+
+        return center + new Vector3(randomX, 0f, randomZ);
+    }
     private IEnumerator BossBehaviour()
     {
         int areaDmgCounter = 0;
@@ -137,7 +152,7 @@ public class BossController : MonoBehaviour
             Debug.Log("Shake camera");
 
             // Spawn Area DMG FX
-            if (areaDamageFX != null) Instantiate(areaDamageFX, targetPos, Quaternion.identity);
+            if (areaDamageFX != null) Instantiate(areaDamageFX, GetRandomNearPosition(targetPos, 3f), Quaternion.identity);
             Debug.Log("spawn area dmg");
 
             if (hp._HP - hp._curHP >= 120f)
