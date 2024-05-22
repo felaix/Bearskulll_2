@@ -17,15 +17,15 @@ public class BossDific : MonoBehaviour
         {
 
 
-            BossHealth._HP = 300;
-            BossHealth._curHP = 300;
+            BossHealth._HP = 400;
+            BossHealth._curHP = 400;
         }
 
       if(SaveGame.Load<string>("Diffi") == "Easy")
         {
 
-            BossHealth._HP = 240;
-            BossHealth._curHP = 240;
+            BossHealth._HP = 300;
+            BossHealth._curHP = 300;
 
         }
 

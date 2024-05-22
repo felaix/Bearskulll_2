@@ -52,7 +52,6 @@ public class BossManager : MonoBehaviour
         _saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
         if (other.GetComponent<Player>() != null)
         {
-
             PlayerIsInArena = true;
             bossController.TriggerBoss();
         }

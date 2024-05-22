@@ -63,10 +63,10 @@ public class BossController : MonoBehaviour
     {
         //Debugger.Instance.CreateWarningLog("Shield Destroyed!");
         //dialogueSystem.CreateDialogue(new string[1] { "STOP IT!!!" }, witchFace, 20f);
-        hp.TakeDamage(20, false);
+        hp.TakeDamage(40, false);
 
         shieldList.RemoveAt(0);
-
+        Debug.Log("Shield count:" + shieldList.Count);
         if (shieldList.Count == 0)
         {
             hp.TakeDamage(400, false);
@@ -106,8 +106,6 @@ public class BossController : MonoBehaviour
 
             model.LookAt(targetPos);
 
-            animator.Play("Dance");
-
             fighter.enabled = false;
 
             if (hp._curHP < hp._HP)
@@ -115,7 +113,13 @@ public class BossController : MonoBehaviour
                 fighter.enabled = true;
             }
 
-            if (hp._HP - hp._curHP >= 60f)
+
+            if (hp._HP - hp._curHP >= 0f && hp._HP - hp._curHP <= 40f)
+            {
+                animator.Play("Dance");
+            }
+
+            if (hp._HP - hp._curHP >= 100f)
             {
                 Debug.Log("Witch State 2");
                 //CreateWarningLog("Witch - State 2 start!"); 
@@ -124,6 +128,8 @@ public class BossController : MonoBehaviour
                 //if (isEnglish) dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "YOU WILL REGRET THIS" }, witchFace, 40f);
                 //else dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "DU WIRST DAS BEREUEN" }, witchFace, 40f);
                 fighter.enabled = true;
+
+                animator.Play("Dance");
 
                 state = 1;
             }
@@ -135,30 +141,29 @@ public class BossController : MonoBehaviour
         {
 
             // ++++ Phase 2 +++++
-            // WHILE HP > 120
-            // the witch gets angry and casts area dmg spells.
-
-            Debug.Log("State 2, area dmg counter: " + areaDmgCounter);
+            // WHILE HP > 140
+            // Boss spawns area dmg
 
             active = true;
-
             areaDmgCounter++;
+
+            // Aniaation
             animator.Play("Attack 1");
 
+            // Look at player
             Vector3 targetPos = GetTargetPosition();
-
             model.LookAt(targetPos);
-            cam.ShakeCamera(10f);
-            Debug.Log("Shake camera");
+
+            // Game Feel
+            cam.ShakeCamera(5f);
 
             // Spawn Area DMG FX
             if (areaDamageFX != null) Instantiate(areaDamageFX, GetRandomNearPosition(targetPos, 3f), Quaternion.identity);
-            Debug.Log("spawn area dmg");
 
-            if (hp._HP - hp._curHP >= 120f)
+            // Switch mode
+            if (hp._HP - hp._curHP >= 140f)
             {
 
-                Debug.Log("Witch State 3");
                 if (isEnglish) dialogueSystem.CreateDialogue(new string[1] { "The witch is stunned! The shields!! NOW!" }, witchFace, 30f);
                 else dialogueSystem.CreateDialogue(new string[1] { "Die Hexe kann sich nicht bewegen! Die Schilder!! Jetzt!" }, witchFace, 30f);
 
@@ -187,7 +192,13 @@ public class BossController : MonoBehaviour
             active = true;
 
             //Instantiate(stunnedFX, transform.position, Quaternion.identity);
-            Instantiate(stunnedFX, model.transform.position, Quaternion.identity);
+
+            // Get the correct position for stun FX
+
+            float offsetY = 6f;
+            Vector3 targetPos = new Vector3(model.transform.position.x, model.transform.position.y + offsetY, model.transform.position.z);
+
+            Instantiate(stunnedFX, targetPos, Quaternion.identity);
 
             //fighter.enabled = false;
 
@@ -234,6 +245,7 @@ public class BossController : MonoBehaviour
 
             if (hp._curHP <= 0f)
             {
+                animator.Play("Dead");
                 // instantiate nuke
                 if (nukeFX != null) { Instantiate(nukeFX, model.transform.position, Quaternion.identity); }
                 if (isEnglish) dialogueSystem.CreateDialogue(new string[1] { "NNNOOOOO!!!" }, witchFace, 20f);
@@ -243,7 +255,7 @@ public class BossController : MonoBehaviour
             state = 4;
         }
 
-        BossManager.Instance.ActivateSpawning();
+        //BossManager.Instance.ActivateSpawning();
 
 
         animator.Play("Dance");

@@ -29,7 +29,10 @@ public class SkipButton : MonoBehaviour
 
         tmp = GetComponentInChildren<TMP_Text>();
         tmp.text = SaveGame.Load<string>("Language") == "English" ? "Skip" : "Überspringen";
+
+        Destroy(gameObject, 10);
     }
+
 
     public void SkipCinematic()
     {

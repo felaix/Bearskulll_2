@@ -25,6 +25,7 @@ public class Health : MonoBehaviour
     public bool IsChest = false;
     public bool IsChestHuge = false;
     public bool isInvincible = false;
+    public bool isShield = false;
 
     private Color blockUIColor = new(255, 167, 0);
     private Color defaultUIColor = new(0, 255, 226);
@@ -103,6 +104,14 @@ public class Health : MonoBehaviour
 
         if (_curHP <= 0)
         {
+
+            if (isShield)
+            {
+                BossController.instance.OnShieldDestroyed();
+            }
+
+
+
             if (IsChestHuge)
             {
                 Archievments.Instance.UnlockAchievement("BOX_MYSTERY");
