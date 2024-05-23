@@ -32,6 +32,8 @@ public class BossController : MonoBehaviour
 
     private bool isEnglish = false;
 
+    public float ModeMultiplier = 1f;
+
     private void Awake()
     {
         instance = this;
@@ -49,6 +51,7 @@ public class BossController : MonoBehaviour
 
         isEnglish = IsEnglish();
         TriggerBoss();
+
     }
 
     private void ActivateAllShields() 
@@ -61,8 +64,6 @@ public class BossController : MonoBehaviour
 
     public void OnShieldDestroyed()
     {
-        //Debugger.Instance.CreateWarningLog("Shield Destroyed!");
-        //dialogueSystem.CreateDialogue(new string[1] { "STOP IT!!!" }, witchFace, 20f);
         hp.TakeDamage(40, false);
 
         shieldList.RemoveAt(0);
@@ -90,9 +91,7 @@ public class BossController : MonoBehaviour
     private IEnumerator BossBehaviour()
     {
         int areaDmgCounter = 0;
-
-        Debug.Log("Current state: " + state);
-        //ActivateAllShields();
+        fighter.enabled = false;
 
         while (state == 0)
         {
@@ -106,30 +105,26 @@ public class BossController : MonoBehaviour
 
             model.LookAt(targetPos);
 
-            fighter.enabled = false;
+            //fighter.enabled = false;
 
             if (hp._curHP < hp._HP)
             {
                 fighter.enabled = true;
             }
 
-
-            if (hp._HP - hp._curHP >= 0f && hp._HP - hp._curHP <= 40f)
+            if (hp._HP - hp._curHP <= (20f * ModeMultiplier))
             {
                 animator.Play("Dance");
+            }else
+            {
+                animator.Play("Motion");
             }
 
-            if (hp._HP - hp._curHP >= 100f)
+            if (hp._HP - hp._curHP >= (60f * ModeMultiplier))
             {
-                Debug.Log("Witch State 2");
-                //CreateWarningLog("Witch - State 2 start!"); 
-                //dialogueSystem.CreateDialogue(new string[1] { "ARRGHHH!!!" }, witchFace, 20f);
-
-                //if (isEnglish) dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "YOU WILL REGRET THIS" }, witchFace, 40f);
-                //else dialogueSystem.CreateDialogue(new string[2] { $"ARGHH!%!&%#!", "DU WIRST DAS BEREUEN" }, witchFace, 40f);
                 fighter.enabled = true;
 
-                animator.Play("Dance");
+                animator.Play("Motion");
 
                 state = 1;
             }
@@ -161,7 +156,7 @@ public class BossController : MonoBehaviour
             if (areaDamageFX != null) Instantiate(areaDamageFX, GetRandomNearPosition(targetPos, 3f), Quaternion.identity);
 
             // Switch mode
-            if (hp._HP - hp._curHP >= 140f)
+            if (hp._HP - hp._curHP >= (140f * ModeMultiplier))
             {
 
                 if (isEnglish) dialogueSystem.CreateDialogue(new string[1] { "The witch is stunned! The shields!! NOW!" }, witchFace, 30f);
@@ -171,9 +166,16 @@ public class BossController : MonoBehaviour
 
                 BossManager.Instance.DeactivateSpawning();
 
-                animator.StopPlayback();
-
                 DeactivateAllShields();
+
+                BossManager.Instance.ActivateEnding();
+
+                float offsetY = 6f;
+                Vector3 stunnedFXPos = new Vector3(model.transform.position.x, model.transform.position.y + offsetY, model.transform.position.z);
+
+                animator.SetBool("dead", true);
+
+                Instantiate(stunnedFX, stunnedFXPos, Quaternion.identity);
 
                 state = 2;
             }
@@ -191,40 +193,30 @@ public class BossController : MonoBehaviour
 
             active = true;
 
-            //Instantiate(stunnedFX, transform.position, Quaternion.identity);
+            if (hp._HP - hp._curHP >= (220f * ModeMultiplier))
+            {
+                fighter.enabled = true;
+                animator.SetBool("dead", false);
+                animator.Play("Attack 2");
+                Vector3 targetPos = GetTargetPosition();
+                model.LookAt(targetPos);
 
-            // Get the correct position for stun FX
-
-            float offsetY = 6f;
-            Vector3 targetPos = new Vector3(model.transform.position.x, model.transform.position.y + offsetY, model.transform.position.z);
-
-            Instantiate(stunnedFX, targetPos, Quaternion.identity);
-
-            //fighter.enabled = false;
-
-            //BossManager.Instance.DeactivateSpawning();
-
-            //animator.StopPlayback();
-
-            //DeactivateAllShields();
-
-            // TODO: Activate Shield can get damage
+            }
 
             BossManager.Instance.DeactivateSpawning();
 
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2f);
 
 
-            if (hp._curHP <= 30f)
+            if (hp._curHP <= (30f * ModeMultiplier))
             {
                 //! Start state 4
 
                 fighter.enabled = true;
+                animator.SetBool("dead", false);
+                animator.Play("Motion");
 
-                //BossManager.Instance.ActivateSpawning();
-                animator.StartPlayback();
-                //ActivateAllShields();
                 if (isEnglish) dialogueSystem.CreateDialogue(new string[1] { $"NOOO...." }, witchFace, 20f);
                 else dialogueSystem.CreateDialogue(new string[1] { $"NEEINN...." }, witchFace, 20f);
 
@@ -258,7 +250,7 @@ public class BossController : MonoBehaviour
         //BossManager.Instance.ActivateSpawning();
 
 
-        animator.Play("Dance");
+        //animator.Play("Dance");
         active = false;
         yield return null;
     }

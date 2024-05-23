@@ -19,6 +19,7 @@ public class BossDific : MonoBehaviour
 
             BossHealth._HP = 400;
             BossHealth._curHP = 400;
+            BossController.instance.ModeMultiplier = 1.5f;
         }
 
       if(SaveGame.Load<string>("Diffi") == "Easy")
@@ -26,17 +27,19 @@ public class BossDific : MonoBehaviour
 
             BossHealth._HP = 300;
             BossHealth._curHP = 300;
+            BossController.instance.ModeMultiplier = 1f;
 
         }
 
-      if(SaveGame.Load<string>("Diffi") == "Hard")
+        if (SaveGame.Load<string>("Diffi") == "Hard")
         {
             BossHealth._HP = 500;
             BossHealth._curHP = 500;
+            BossController.instance.ModeMultiplier = 1.8f;
 
         }
-     
-}
+
+    }
 
 
 

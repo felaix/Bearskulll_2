@@ -45,6 +45,8 @@ public class BossManager : MonoBehaviour
     public void DeactivateSpawning() => _spawning = true;
     public void ActivateSpawning() => _spawning = false;
 
+    public void ActivateEnding() => _ending = true;
+
     private void OnTriggerEnter(Collider other)
     {
         BridgeStop.SetActive(true);
