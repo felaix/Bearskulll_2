@@ -197,7 +197,7 @@ public class BossController : MonoBehaviour
             {
                 fighter.enabled = true;
                 animator.SetBool("dead", false);
-                animator.Play("Attack 2");
+                animator.Play("Motion");
                 Vector3 targetPos = GetTargetPosition();
                 model.LookAt(targetPos);
 
@@ -237,6 +237,9 @@ public class BossController : MonoBehaviour
 
             if (hp._curHP <= 0f)
             {
+
+                BossManager.Instance.TriggerEnd();
+
                 animator.Play("Dead");
                 // instantiate nuke
                 if (nukeFX != null) { Instantiate(nukeFX, model.transform.position, Quaternion.identity); }

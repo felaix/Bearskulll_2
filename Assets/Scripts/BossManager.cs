@@ -79,8 +79,8 @@ public class BossManager : MonoBehaviour
         {
             _saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
             GameEnd();
-
         }
+
         if (_ending)
         {
             for (int i = 0; i < enemylist.Count; i++)
@@ -110,6 +110,8 @@ public class BossManager : MonoBehaviour
         _spawning = false;
     }
 
+    public void TriggerEnd() => GameEnd();
+
 
     private void GameEnd()
     {
@@ -120,7 +122,7 @@ public class BossManager : MonoBehaviour
         }
         if (SaveGame.Load<string>("Language") == "English")
         {
-
+            Debug.Log("GAME ENDING STARTING UI FADER");
 
 
             int currentStatValue;
@@ -128,22 +130,18 @@ public class BossManager : MonoBehaviour
 
             EndTextEN.text = "You have " + currentStatValue + " Souls freed.";
             Debug.Log("GameEnd");
+            _faderAnimEN.SetBool("End", true);
             _faderAnimEN.SetTrigger("End");
             PlayerUI.SetActive(false);
             Player.GetComponent<Player>().enabled = false;
             Player.GetComponent<Health>()._curHP = 100000;
             AudioManager.instance.PlayMusic(_clip);
             _saveManager.ResetSave();
-
-
-
-
-
-
-
         }
         else
         {
+
+            Debug.Log("GAME ENDING STARTING UI FADER");
 
             int currentStatValue;
             bool gotStat = SteamUserStats.GetStat("SOULS", out currentStatValue);
@@ -151,6 +149,7 @@ public class BossManager : MonoBehaviour
             EndText.text = "Du hast " + currentStatValue + " Seelen befreit.";
             Debug.Log("GameEnd");
             _faderAnim.SetTrigger("End");
+            _faderAnim.SetBool("End", true);
             PlayerUI.SetActive(false);
             Player.GetComponent<Player>().enabled = false;
             Player.GetComponent<Health>()._curHP = 100000;
@@ -158,8 +157,5 @@ public class BossManager : MonoBehaviour
             _saveManager.ResetSave();
         }
     }
-
-
-
 
 }
