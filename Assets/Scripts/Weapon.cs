@@ -16,7 +16,15 @@ public class Weapon : ScriptableObject
 
     const string weaponName = "Weapon";
 
-    public string GetName() => weaponName;  
+    public string GetName() => weaponName;
+
+
+    public void EquipShield(Transform HandTransformR, Transform HandTransformL)
+    {
+        Transform HandTrans = GetTransform(HandTransformR, HandTransformL);
+        GameObject weapon = Instantiate(weaponPref, HandTrans);
+        weapon.name = weaponName;
+    }
 
     public void Spawn(Transform HandTransformR, Transform HandTransformL)
     {
@@ -31,7 +39,6 @@ public class Weapon : ScriptableObject
         Transform HandTrans = GetTransform(HandTransformR, HandTransformL);
         Projectile bullet = Instantiate(projectile, HandTrans.position, Quaternion.identity);
         bullet.SetTarget(target, weaponDamage);
-
     }
 
     private Transform GetTransform(Transform handTransformR, Transform handTransformL)

@@ -13,6 +13,7 @@ public class Fighter : MonoBehaviour, IAction
     public Transform LeftHandTransform = null;
 
     public  Weapon _weapon = null;
+    public Weapon _shield;
     
     private float lastHit;
     [SerializeField] Animator _anim;
@@ -40,7 +41,7 @@ public class Fighter : MonoBehaviour, IAction
     private void Start()
     {
         EquipWeapon(_weapon);
-
+        _shield.EquipShield(RightHandTransform, LeftHandTransform);
     }
 
     private void Update()
