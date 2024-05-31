@@ -23,16 +23,6 @@ public class LanguageSwitch : MonoBehaviour
         
         UpdateLanguage();
 
-
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void German()
@@ -61,8 +51,6 @@ public class LanguageSwitch : MonoBehaviour
             {
                 LanguageObjectOFF.SetActive(false);
             }
-
-            
             
         }
         else

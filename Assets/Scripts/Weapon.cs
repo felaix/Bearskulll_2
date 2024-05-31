@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -19,8 +20,9 @@ public class Weapon : ScriptableObject
     public string GetName() => weaponName;
 
 
-    public void EquipShield(Transform HandTransformR, Transform HandTransformL)
+    public async void EquipShield(Transform HandTransformR, Transform HandTransformL)
     {
+        await Task.Delay(1000);
         Transform HandTrans = GetTransform(HandTransformR, HandTransformL);
         GameObject weapon = Instantiate(weaponPref, HandTrans);
         weapon.name = weaponName;
@@ -58,7 +60,7 @@ public class Weapon : ScriptableObject
         //}
         if (OldWeapon == null) return;
 
-        Debug.Log("Destroy Weapon: " + OldWeapon);
+        //Debug.Log("Destroy Weapon: " + OldWeapon);
 
         OldWeapon.name = "DestroyedWeapon";
         Destroy(OldWeapon.gameObject);

@@ -41,7 +41,7 @@ public class Fighter : MonoBehaviour, IAction
     private void Start()
     {
         EquipWeapon(_weapon);
-        _shield.EquipShield(RightHandTransform, LeftHandTransform);
+        if (_shield != null) _shield.EquipShield(RightHandTransform, LeftHandTransform);
     }
 
     private void Update()

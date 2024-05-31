@@ -15679,7 +15679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 451283009}
   m_LocalRotation: {x: 0.17860618, y: -0.82139385, z: 0.38302222, w: 0.38302222}
-  m_LocalPosition: {x: 22.266579, y: -3.5953035, z: 1.8031034}
+  m_LocalPosition: {x: 22.266596, y: -3.5953007, z: 1.8030958}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -58522,6 +58522,7 @@ MonoBehaviour:
   HeroSword: {fileID: 11400000, guid: de9763bb2c9ba274bb4ba94ab1ef3f96, type: 2}
   MonsterDagger: {fileID: 11400000, guid: 88921a537b6553a4d9b7670d794b379a, type: 2}
   BossAxe: {fileID: 11400000, guid: 8e1a5abec9184fd439167c0bc7d12971, type: 2}
+  Shield: {fileID: 0}
   Faueste: {fileID: 11400000, guid: 1e6dcff3169f0d145bdbe0bc57ffa17f, type: 2}
   PlayerDeadFighterScript: {fileID: 2143056820}
 --- !u!114 &1568606085
@@ -87466,6 +87467,8 @@ MonoBehaviour:
   impulse: {fileID: 2143056811}
   IsChest: 0
   IsChestHuge: 0
+  isInvincible: 0
+  isShield: 0
 --- !u!114 &2143056820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87482,6 +87485,7 @@ MonoBehaviour:
   RightHandTransform: {fileID: 1447960346}
   LeftHandTransform: {fileID: 1484168357}
   _weapon: {fileID: 11400000, guid: 1e6dcff3169f0d145bdbe0bc57ffa17f, type: 2}
+  _shield: {fileID: 11400000, guid: 6b73d1bf62fe7b041854251c062afc59, type: 2}
   _anim: {fileID: 1741864989}
   _AttackFX: {fileID: 756508636536275686, guid: 9a4051be6ab9f6b488705d995c3ce387, type: 3}
   _AttackFX2: {fileID: 756508636536275686, guid: c415e47d083d66a408c072df980616e5, type: 3}

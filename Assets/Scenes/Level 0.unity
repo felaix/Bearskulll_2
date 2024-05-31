@@ -45285,6 +45285,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7977034292313634241, guid: 63573aa1f71299242b498060d4a4d278, type: 3}
+      propertyPath: _shield
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977034292313634241, guid: 63573aa1f71299242b498060d4a4d278, type: 3}
       propertyPath: AttackSFX2
       value: 
       objectReference: {fileID: 8300000, guid: 311e53dcc76257840b544b2c08d32f51, type: 3}
@@ -47580,6 +47584,9 @@ MonoBehaviour:
   _goToSceneID: 7
   Menu1: {fileID: 0}
   Menu2: {fileID: 0}
+  KeyRequired: 0
+  Player: {fileID: 0}
+  Level: 0
 --- !u!4 &1863591239
 Transform:
   m_ObjectHideFlags: 0
@@ -56473,15 +56480,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.46798
+      value: 37.468006
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8636656
+      value: 1.8636694
       objectReference: {fileID: 0}
     - target: {fileID: 706598574, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45.156574
+      value: 45.156548
       objectReference: {fileID: 0}
     - target: {fileID: 2021144913, guid: 0ddc97eb81981da43a1f85d70fe9422f, type: 3}
       propertyPath: m_ChildCameras.Array.size
