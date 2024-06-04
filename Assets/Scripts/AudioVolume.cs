@@ -14,8 +14,8 @@ public class AudioVolume : MonoBehaviour
         _slider.onValueChanged.AddListener(Val => AudioManager.instance.ChangeMasterVolume(Val));
 
 
-        AudioManager.instance.ChangeMasterVolume(.5f);
-        _slider.value = AudioListener.volume;
+        //AudioManager.instance.ChangeMasterVolume(.5f);
+        //_slider.value = AudioListener.volume;
     }
 
 }
