@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
+[DefaultExecutionOrder(0)]
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
@@ -19,6 +17,7 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            ChangeMasterVolume(.5f);
             DontDestroyOnLoad(gameObject);
         }
         else 
@@ -30,6 +29,7 @@ public class AudioManager : MonoBehaviour
         if (isHub)
         {
             Invoke("startmusic", 0.1f);
+
         }
     }
     void startmusic()

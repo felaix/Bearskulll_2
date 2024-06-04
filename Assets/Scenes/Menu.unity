@@ -13422,7 +13422,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.26
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -15526,6 +15526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _clip: {fileID: 8300000, guid: 08030508ffd4f4b45b490b04c1891b44, type: 3}
   _isMusic: 1
+  _setVolume: 1
 --- !u!4 &1990814467
 Transform:
   m_ObjectHideFlags: 0
@@ -18000,7 +18001,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.26
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
