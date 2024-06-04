@@ -34309,7 +34309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -37.499268, y: -31.600098}
+  m_AnchoredPosition: {x: -50, y: -50}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1131574103
@@ -65270,6 +65270,7 @@ MonoBehaviour:
   IsChest: 0
   IsChestHuge: 0
   isInvincible: 0
+  isShield: 0
 --- !u!114 &1707152511562279715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70953,6 +70954,7 @@ MonoBehaviour:
   RightHandTransform: {fileID: 1707152511419295239}
   LeftHandTransform: {fileID: 1707152512957433345}
   _weapon: {fileID: 0}
+  _shield: {fileID: 0}
   _anim: {fileID: 1707152513179245597}
   _AttackFX: {fileID: 756508636536275686, guid: 9a4051be6ab9f6b488705d995c3ce387, type: 3}
   _AttackFX2: {fileID: 756508636536275686, guid: c415e47d083d66a408c072df980616e5, type: 3}

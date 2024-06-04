@@ -4874,7 +4874,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -37.49829, y: -31.600098}
+  m_AnchoredPosition: {x: -50, y: -50}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &311313372
@@ -72474,6 +72474,7 @@ MonoBehaviour:
   RightHandTransform: {fileID: 1707152511766080156}
   LeftHandTransform: {fileID: 1707152512375966362}
   _weapon: {fileID: 11400000, guid: 6b73d1bf62fe7b041854251c062afc59, type: 2}
+  _shield: {fileID: 0}
   _anim: {fileID: 1707152512699420806}
   _AttackFX: {fileID: 756508636536275686, guid: 9a4051be6ab9f6b488705d995c3ce387, type: 3}
   _AttackFX2: {fileID: 756508636536275686, guid: c415e47d083d66a408c072df980616e5, type: 3}
