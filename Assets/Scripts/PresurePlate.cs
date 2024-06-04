@@ -13,8 +13,6 @@ public class PresurePlate : MonoBehaviour
 
     [SerializeField] AudioClip _pressedSFX;
 
-
-
     private void Update()
     {
 

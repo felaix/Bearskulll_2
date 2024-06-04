@@ -24,11 +24,15 @@ public class Enemy : MonoBehaviour
     bool dropped = false;
     [SerializeField] GameObject itemDrop;
 
+    public bool CanAttack = true;
+
     private void Start()
     {
         startPosition = transform.position;
         _waitTime = _waypointWaitTime;
         _searchTime = _lostSightTime;
+
+        EnemyCounter.Instance.AddEnemy(this);
     }
 
     private void Update()
@@ -37,6 +41,7 @@ public class Enemy : MonoBehaviour
 
         if (GetComponent<Health>().isDead)
         {
+            EnemyCounter.Instance.RemoveEnemy(this);
             AddSoul();
             ItemDrop();
             GetComponent<Fighter>().Cancel();
@@ -46,7 +51,7 @@ public class Enemy : MonoBehaviour
         {
             if (isChasing())
             {
-                GetComponent<Fighter>().Attack(player);
+                if (CanAttack) GetComponent<Fighter>().Attack(player);
                 _lastTimeSawPlayer = Time.time;
             }
             else if (Time.time - _lastTimeSawPlayer <= _searchTime)
