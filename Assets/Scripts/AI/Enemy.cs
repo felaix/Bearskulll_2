@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
         _waitTime = _waypointWaitTime;
         _searchTime = _lostSightTime;
 
-        EnemyCounter.Instance.AddEnemy(this);
+        if (EnemyCounter.Instance != null) EnemyCounter.Instance.AddEnemy(this);
     }
 
     private void Update()
@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
 
         if (GetComponent<Health>().isDead)
         {
-            EnemyCounter.Instance.RemoveEnemy(this);
+            if (EnemyCounter.Instance != null) EnemyCounter.Instance.RemoveEnemy(this);
             AddSoul();
             ItemDrop();
             GetComponent<Fighter>().Cancel();
@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void ItemDrop()
+    public void ItemDrop()
     {
 
         if (!dropped && itemDrop != null)

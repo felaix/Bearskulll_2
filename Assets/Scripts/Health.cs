@@ -22,6 +22,7 @@ public class Health : MonoBehaviour
     [SerializeField] Transform _FXtransform;
     [SerializeField] GameObject healFX;
     [SerializeField] CinemachineImpulseSource impulse;
+    public bool isArenaChest = false;
     public bool IsChest = false;
     public bool IsChestHuge = false;
     public bool isInvincible = false;
@@ -86,9 +87,13 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage, bool weapon)
     {
-
         if (isInvincible) return;
 
+
+        if (isArenaChest)
+        {
+            _curHP -= damage;
+        }
 
         if (IsChest && weapon)
         {
@@ -98,24 +103,27 @@ public class Health : MonoBehaviour
         if (!IsChest)
         {
             _curHP -= damage;
-
         }
-
 
         if (_curHP <= 0)
         {
+            if (isArenaChest)
+            {
+                GetComponent<Enemy>().ItemDrop();
+                StartCoroutine(DeathFX());
+                //Destroy(gameObject, .5f);
+            }
 
             if (isShield)
             {
                 BossController.instance.OnShieldDestroyed();
             }
 
-
-
             if (IsChestHuge)
             {
                 Archievments.Instance.UnlockAchievement("BOX_MYSTERY");
             }
+
             _curHP = 0;
             _anim.SetBool("dead", true);
 
@@ -155,7 +163,7 @@ public class Health : MonoBehaviour
 
     {
         isDead = true;
-        Archievments.Instance.IncrementStat();
+        if (Archievments.Instance != null) Archievments.Instance.IncrementStat();
         GetComponent<NavMeshAgent>().enabled = false;
         try
         {
@@ -165,7 +173,7 @@ public class Health : MonoBehaviour
 
 
         float speed = 2f;
-        if (IsChest)
+        if (IsChest || isArenaChest)
         {
             speed = 0.2f;
         }

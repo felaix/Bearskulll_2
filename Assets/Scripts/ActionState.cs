@@ -19,7 +19,10 @@ public class ActionState : MonoBehaviour
     }
     public void CancelCurrentAction()
     {
-        currentAction.Cancel();
+        if (currentAction != null)
+        {
+            currentAction.Cancel();
+        }
     }
 
 

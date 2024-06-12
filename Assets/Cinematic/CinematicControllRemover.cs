@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Playables;
 
 public class CinematicControllRemover : MonoBehaviour
@@ -11,6 +12,12 @@ public class CinematicControllRemover : MonoBehaviour
         Debug.Log(GetComponent<PlayableDirector>());
         GetComponent<PlayableDirector>().played += DisableControl;
         GetComponent<PlayableDirector>().stopped += EnableControl;
+
+    }
+
+    private void Start()
+    {
+        DisableControl(GetComponent<PlayableDirector>());
     }
 
     private void DisableControl(PlayableDirector pd)
@@ -21,6 +28,9 @@ public class CinematicControllRemover : MonoBehaviour
 
         Debug.Log("Disable control");
         // Disable enemy controls too
+
+        if (EnemyCounter.Instance == null) return;
+
         foreach (Enemy enemy in EnemyCounter.Instance.Enemies)
         {
             Debug.Log("Disable for " + enemy.name);
@@ -36,7 +46,9 @@ public class CinematicControllRemover : MonoBehaviour
         await Task.Delay(3000);
         _player.GetComponent<Player>().enabled = true;
 
+
         Debug.Log("enable control");
+        if (EnemyCounter.Instance == null) return;
 
         // Enable enemy controls
         foreach (Enemy enemy in EnemyCounter.Instance.Enemies)

@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class Movement : MonoBehaviour, IAction
 {
 
-    [SerializeField] Animator _anim;
+    [SerializeField] public Animator _anim;
     public float maxSpeed;
     NavMeshAgent navMeshAgent;
     public bool isKnockback;

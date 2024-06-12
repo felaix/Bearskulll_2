@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Arena_Simple.unity
     guid: 6dee92c845ac24c4a8849496e85cffd7
+  - enabled: 1
+    path: Assets/Scenes/Level 5 Arena.unity
+    guid: 499cb6463578dad419983f2ed4923d9d
   - enabled: 0
     path: Assets/Scenes/Arena_CollectShield.unity
     guid: 5fa006ac0a9ef984fa61050fe8cfb690
