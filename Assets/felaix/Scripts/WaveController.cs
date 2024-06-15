@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
 
 [DefaultExecutionOrder(0)]
@@ -8,27 +9,25 @@ public class WaveController : MonoBehaviour
     public static WaveController Instance { get; private set; }
 
     private int currentWave = 1;
-    private int killedEnemyCount;
-    private bool isWaveCompleted;
-    private bool isWaveOnGoing;
+    private int killedEnemyCount = 0;
+
+    private bool isWaveCompleted = false;
+    private bool isWaveOnGoing = false;
 
     private SpawnController spawnController;
 
+    // Start & End
     public Action StartWave;
-    public Action EndWave = () => Debug.Log("Wave conpleted");
+    public Action EndWave;
+
     public void KilledEnemy()
     {
+        Debug.Log("Killed enemy");
         killedEnemyCount++;
+
         //Debug.Log("Killed enemy count: " + killedEnemyCount);
     }
 
-    private void Update()
-    {
-        if (isWaveOnGoing)
-        {
-            if (killedEnemyCount >= currentWave) WaveCompleted();
-        }
-    }
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -36,9 +35,19 @@ public class WaveController : MonoBehaviour
 
     public void WaveCompleted()
     {
+        //Debug.Log("Killed enemys: " + killedEnemyCount);
+
+        // Wave ist completed und wave ist nicht mehr on going
         isWaveCompleted = true;
         isWaveOnGoing = false;
+
+        // Reset enemy count für die nächste wave
         killedEnemyCount = 0;
+
+        // Level up
+        currentWave++;
+
+        // trigger end wave um mögl. listener zu triggern
         EndWave();
     }
 
@@ -60,22 +69,11 @@ public class WaveController : MonoBehaviour
 
     public void TriggerWave()
     {
-        if (isWaveOnGoing) 
-        {
-            return;
-        }
+        if (isWaveOnGoing || !isWaveCompleted) return;
 
-        if (currentWave == 0)
-        {
-            isWaveOnGoing = true;
-            currentWave++;
-            StartWave();
-        }
-
-        if (!isWaveCompleted) return;
         isWaveCompleted = false;
-        isWaveOnGoing = true;  
-        currentWave++;
+        isWaveOnGoing = true;
+
         StartWave();
     }
 

@@ -14,8 +14,13 @@ public class KnightController : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject _critTMP;
+    [SerializeField] private bool _showCrit; // can be deleted later
 
-    [SerializeField] private GameObject _enemyPrefab;
+    [Header("Animations")]
+    [SerializeField][Range(0.1f, 10f)] private float _animSpd = 1f;
+    [SerializeField][Range(0.1f, 10f)] private float _animDelay = .5f;
+    [SerializeField] private Ease _ease;
+    //[SerializeField] private GameObject _enemyPrefab;
 
     private Health _healthComp;
     private Fighter _fighterComp;
@@ -74,7 +79,7 @@ public class KnightController : MonoBehaviour
             if (_healthComp._curHP == _maxHP)
             {
                 _animator.Play("BlockPose");
-                yield return new WaitForSeconds(.1f);
+                yield return new WaitForSeconds(_animDelay);
             }
             else state = 1;
         }
@@ -82,40 +87,63 @@ public class KnightController : MonoBehaviour
         while (state == 1)
         {
             Debug.Log("Boss HP: " + _healthComp._curHP);
-            if (_healthComp._curHP < _maxHP - 10)
+            if (_healthComp._curHP < _maxHP - 5)
             {
+                // Activate Object
+                if (_showCrit) _critTMP.SetActive(true);
 
-                _critTMP.SetActive(true);
+                // Reset scale
                 _critTMP.transform.localScale = Vector3.zero;
-                _critTMP.transform.DOScale(Vector3.one + Vector3.one, 1f).SetEase(Ease.InOutBounce);
-                _critTMP.transform.DOLocalJump(_critTMP.transform.localPosition, 1f, 1, 1f);
-                transform.DOLocalJump(transform.position, 1f, 2, .5f);
-                yield return new WaitForSeconds(.5f);
-                _critTMP.transform.DOScale(Vector3.zero, 1f);
+
+                // Sclae up
+                _critTMP.transform.DOScale(Vector3.one + Vector3.one, _animSpd).SetEase(_ease);
+
+                // Jump TMP
+                //_critTMP.transform.DOLocalJump(_critTMP.transform.localPosition, 1f, 1, _animSpd);
+
+                // Jump KNIGHT 
+                transform.DOLocalJump(transform.position, 1f, 2, _animSpd / 2f);
+
+                // Delay
+                yield return new WaitForSeconds(_animDelay);
+
+                // Reset scale
+                _critTMP.transform.DOScale(Vector3.zero, _animSpd).SetEase(_ease);
+
+                // Trigger Dialogue
                 TriggerNextDialogue(1);
-                yield return new WaitForSeconds(.5f);
+
+                // Delay
+                yield return new WaitForSeconds(_animDelay);
+
+                // Reset Object
                 _critTMP.gameObject.SetActive(false);
+
+                // Set State
                 state = 2;
             }
-
-            yield return new WaitForSeconds(.5f);
-
         }
 
         while (state == 2)
         {
             _movementComp.StartMoveAction(_destinations[0].position, 1);
-            state = 3; break;
+            state = 3;
         }
 
         while (state == 3)
         {
             //transform.LookAt(_player.transform);
+            Debug.Log("knight state 3");
             WaveController.Instance.StartWave();
+            state = 4;
             yield return new WaitForSeconds(1f);
+        }
 
+        if (state == 4)
+        {
+            Debug.Log("knight state 4");
 
-
+            yield return null;
         }
 
         yield return null;

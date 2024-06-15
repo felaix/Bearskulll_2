@@ -23,11 +23,21 @@ public class EnemyCounter : MonoBehaviour
     public void AddEnemy(Enemy enemy)
     {
         Enemies.Add(enemy);
+
+        Debug.Log("Enemy count is " + Enemies.Count);
+
     }
 
     public void RemoveEnemy(Enemy enemy)
     {
+        if (WaveController.Instance != null) WaveController.Instance.KilledEnemy();
         Enemies.Remove(enemy);
+
+        if (Enemies.Count == 0)
+        {
+            WaveController.Instance.WaveCompleted();
+            Debug.Log("Enemy count is 0");
+        }
     }
 
 } 

@@ -10,6 +10,8 @@ public class SpawnController : MonoBehaviour
 
     private int spawnAmount = 1;
 
+    private List<GameObject> _enemies = new List<GameObject>();
+
     private void Start()
     {
         playerT = GameObject.FindGameObjectWithTag("Player").transform;
@@ -25,25 +27,18 @@ public class SpawnController : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
-        Debug.Log("Spawn enemy coroutine");
         yield return new WaitForSeconds(1f);
+        _enemies.Clear();
+
         int x = 0;
-        List<GameObject> enemies = new List<GameObject>();
+
         while (x < spawnAmount)
         {
             x++;
             GameObject enemy = SpawnEnemy();
-            Debug.Log($"Spawning enemy {enemy}");
-            enemies.Add(enemy);
+            _enemies.Add(enemy);
             yield return new WaitForSeconds(1f);
         }
-
-        while (WaveController.Instance.GetCurrentKilledEnemyCount() < spawnAmount)
-        {
-            yield return null;
-        }
-
-        WaveController.Instance.WaveCompleted();
     }
 
     private GameObject SpawnEnemy()

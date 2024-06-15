@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -22,6 +20,7 @@ public class Enemy : MonoBehaviour
     [Range(0, 1)][SerializeField] float patrolSpeedFraction = 0.5f;
     bool SoulAdded = false;
     bool dropped = false;
+    bool died = false;
     [SerializeField] GameObject itemDrop;
 
     public bool CanAttack = true;
@@ -41,7 +40,8 @@ public class Enemy : MonoBehaviour
 
         if (GetComponent<Health>().isDead)
         {
-            if (EnemyCounter.Instance != null) EnemyCounter.Instance.RemoveEnemy(this);
+            //if (EnemyCounter.Instance != null) EnemyCounter.Instance.RemoveEnemy(this);
+            Die();
             AddSoul();
             ItemDrop();
             GetComponent<Fighter>().Cancel();
@@ -70,6 +70,13 @@ public class Enemy : MonoBehaviour
             }
         }
 
+    }
+
+    private void Die()
+    {
+        if (died) return;
+        died = true;
+        if (EnemyCounter.Instance != null) EnemyCounter.Instance.RemoveEnemy(this);
     }
 
     public void ItemDrop()

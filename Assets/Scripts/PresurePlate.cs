@@ -9,6 +9,7 @@ public class PresurePlate : MonoBehaviour
     [SerializeField] bool _hasToBePlayer;
     [SerializeField] bool _hasToStay;
     [SerializeField] bool _isPressed;
+    [SerializeField] bool _startWave;
     public NavMeshObstacle[] navMeshObstacles;
 
     [SerializeField] AudioClip _pressedSFX;
@@ -42,6 +43,11 @@ public class PresurePlate : MonoBehaviour
             foreach (NavMeshObstacle obstacle in navMeshObstacles)
             {
                 if (obstacle) obstacle.enabled = false;
+            }
+
+            if (_startWave)
+            {
+                WaveController.Instance.StartWave();
             }
 
 
