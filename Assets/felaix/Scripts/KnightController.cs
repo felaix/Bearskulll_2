@@ -73,12 +73,15 @@ public class KnightController : MonoBehaviour
         TriggerNextDialogue(0);
 
         int state = 0;
+        Debug.Log("state 0");
 
         while (state == 0)
         {
+            Debug.Log("still state 0");
             if (_healthComp._curHP == _maxHP)
             {
                 _animator.Play("BlockPose");
+                Debug.Log("Play block pose");
                 yield return new WaitForSeconds(_animDelay);
             }
             else state = 1;
@@ -87,16 +90,20 @@ public class KnightController : MonoBehaviour
         while (state == 1)
         {
             Debug.Log("Boss HP: " + _healthComp._curHP);
+
             if (_healthComp._curHP < _maxHP - 5)
             {
-                // Activate Object
-                if (_showCrit) _critTMP.SetActive(true);
+                // Activate TMP
+                if (_showCrit) 
+                {
+                    _critTMP.SetActive(true);
 
-                // Reset scale
-                _critTMP.transform.localScale = Vector3.zero;
+                    // Reset scale
+                    _critTMP.transform.localScale = Vector3.zero;
 
-                // Sclae up
-                _critTMP.transform.DOScale(Vector3.one + Vector3.one, _animSpd).SetEase(_ease);
+                    // Sclae up
+                    _critTMP.transform.DOScale(Vector3.one + Vector3.one, _animSpd).SetEase(_ease);
+                }
 
                 // Jump TMP
                 //_critTMP.transform.DOLocalJump(_critTMP.transform.localPosition, 1f, 1, _animSpd);
@@ -108,7 +115,7 @@ public class KnightController : MonoBehaviour
                 yield return new WaitForSeconds(_animDelay);
 
                 // Reset scale
-                _critTMP.transform.DOScale(Vector3.zero, _animSpd).SetEase(_ease);
+                if (_showCrit) _critTMP.transform.DOScale(Vector3.zero, _animSpd).SetEase(_ease);
 
                 // Trigger Dialogue
                 TriggerNextDialogue(1);
@@ -117,11 +124,13 @@ public class KnightController : MonoBehaviour
                 yield return new WaitForSeconds(_animDelay);
 
                 // Reset Object
-                _critTMP.gameObject.SetActive(false);
+                if (_showCrit) _critTMP.gameObject.SetActive(false);
 
                 // Set State
                 state = 2;
             }
+            
+            yield return new WaitForSeconds(_animDelay);
         }
 
         while (state == 2)
@@ -136,7 +145,7 @@ public class KnightController : MonoBehaviour
             Debug.Log("knight state 3");
             WaveController.Instance.StartWave();
             state = 4;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(_animDelay);
         }
 
         if (state == 4)

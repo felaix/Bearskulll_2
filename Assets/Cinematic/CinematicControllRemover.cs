@@ -6,6 +6,8 @@ using UnityEngine.Playables;
 public class CinematicControllRemover : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
+    [SerializeField] private bool _disableControlsOnLoad = false;
+    [SerializeField] private GameObject _ui;
 
     private void Awake()
     {
@@ -17,7 +19,7 @@ public class CinematicControllRemover : MonoBehaviour
 
     private void Start()
     {
-        DisableControl(GetComponent<PlayableDirector>());
+        if (_disableControlsOnLoad) DisableControl(GetComponent<PlayableDirector>());
     }
 
     private void DisableControl(PlayableDirector pd)
@@ -26,7 +28,9 @@ public class CinematicControllRemover : MonoBehaviour
         _player.GetComponent<ActionState>().CancelCurrentAction();
         _player.GetComponent<Player>().enabled = false;
 
-        Debug.Log("Disable control");
+        _ui.SetActive(false);
+
+        Debug.Log("Disable control (cinematic controll remover)");
         // Disable enemy controls too
 
         if (EnemyCounter.Instance == null) return;
@@ -44,6 +48,9 @@ public class CinematicControllRemover : MonoBehaviour
     private async void EnableControl(PlayableDirector pd)
     {
         await Task.Delay(3000);
+
+        _ui.SetActive(true);
+
         _player.GetComponent<Player>().enabled = true;
 
 
@@ -59,5 +66,6 @@ public class CinematicControllRemover : MonoBehaviour
 
         }
     }
+
 }
 

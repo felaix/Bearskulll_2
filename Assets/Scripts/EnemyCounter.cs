@@ -25,7 +25,6 @@ public class EnemyCounter : MonoBehaviour
         Enemies.Add(enemy);
 
         Debug.Log("Enemy count is " + Enemies.Count);
-
     }
 
     public void RemoveEnemy(Enemy enemy)

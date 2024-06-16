@@ -10,13 +10,14 @@ public class PresurePlate : MonoBehaviour
     [SerializeField] bool _hasToStay;
     [SerializeField] bool _isPressed;
     [SerializeField] bool _startWave;
+    [SerializeField] private bool _isArena = false;
     public NavMeshObstacle[] navMeshObstacles;
 
     [SerializeField] AudioClip _pressedSFX;
 
     private void Update()
     {
-
+        if (_isArena) return;
         _objectToMove.GetComponent<Animator>().SetBool("Pressed", _isPressed);
         GetComponent<Animator>().SetBool("Pressed", _isPressed);
     }
@@ -45,13 +46,14 @@ public class PresurePlate : MonoBehaviour
                 if (obstacle) obstacle.enabled = false;
             }
 
+            if (!_isArena) return;
+
             if (_startWave)
             {
                 WaveController.Instance.StartWave();
             }
 
-
-
+            _objectToMove.GetComponent<Animator>().Play("DOWN");
         }
     }
 

@@ -89,7 +89,6 @@ public class Health : MonoBehaviour
     {
         if (isInvincible) return;
 
-
         if (isArenaChest)
         {
             _curHP -= damage;
@@ -137,7 +136,6 @@ public class Health : MonoBehaviour
         }
         if (isPlayer)
             impulse.GenerateImpulse();
-
 
     }
     public void TakeHealing(int healamount)

@@ -11,6 +11,9 @@ public class MenuManager : MonoBehaviour
     public void ExitGame() //back to menu
     {
 
+        
+
+
         if (SceneManager.GetActiveScene().name == "Map")
         {
             SceneManager.LoadScene(0);

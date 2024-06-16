@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Stairs : MonoBehaviour
 {
-
+    [SerializeField] private List<NavMeshObstacle> _obstacles;
     private Animator _animator;
     private bool spawned;
 
@@ -22,7 +24,24 @@ public class Stairs : MonoBehaviour
     {
         spawned = !spawned;
 
-        if (!spawned) { _animator.Play("BlockUP"); Debug.Log("UP STAIRS"); }
-        else { _animator.Play("BlockDOWN"); Debug.Log("DOWN STAIRS"); }
+        if (!spawned) { _animator.Play("UP"); Debug.Log("UP STAIRS"); DeactivateObstacles(); }
+        else { _animator.Play("DOWN"); Debug.Log("DOWN STAIRS"); ActivateObstacles(); }
     }
+
+    private void DeactivateObstacles()
+    {
+        foreach(var obstacle in _obstacles)
+        {
+            obstacle.enabled = false;
+        }
+    }
+
+    private void ActivateObstacles()
+    {
+        foreach (var obstacle in _obstacles)
+        {
+            obstacle.enabled = true;
+        }
+    }
+
 }
