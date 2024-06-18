@@ -27,6 +27,7 @@ public class CinematicControllRemover : MonoBehaviour
         _player = GameObject.FindWithTag("Player");
         _player.GetComponent<ActionState>().CancelCurrentAction();
         _player.GetComponent<Player>().enabled = false;
+        _player.GetComponent<Movement>().ToggleSkipUpdate(true);
 
         _ui.SetActive(false);
 
@@ -47,12 +48,12 @@ public class CinematicControllRemover : MonoBehaviour
     }
     private async void EnableControl(PlayableDirector pd)
     {
-        await Task.Delay(3000);
+        await Task.Delay(100);
 
         _ui.SetActive(true);
 
         _player.GetComponent<Player>().enabled = true;
-
+        _player.GetComponent<Movement>().ToggleSkipUpdate(false);
 
         Debug.Log("enable control");
         if (EnemyCounter.Instance == null) return;

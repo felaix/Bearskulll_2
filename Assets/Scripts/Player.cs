@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
 
     private Fighter _fighter;
 
+    private bool _skipUpdate = false;
 
     private void OnEnable()
     {
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
+        if (_skipUpdate) return;
         if (Input.GetMouseButtonDown(1))
         {
             ActivateBlock();

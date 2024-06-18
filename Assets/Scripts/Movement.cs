@@ -20,7 +20,7 @@ public class Movement : MonoBehaviour, IAction
 
     float moveHorizontal = 0;
     float moveVertical = 0;
-
+    private bool skipUpdate = false;
 
 
     public bool InvertMainMap = false;
@@ -34,8 +34,12 @@ public class Movement : MonoBehaviour, IAction
         WASDACTIVATED = SaveGame.Load<bool>("WASDACTIVATED");
     }
 
+    public void ToggleSkipUpdate(bool skip) => skipUpdate = skip;
+
     void Update()
     {
+        if (skipUpdate) return;
+
         UpdateAnimator();
         if(isPlayer)
         {
