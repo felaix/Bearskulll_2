@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Playables;
 
 public class PresurePlate : MonoBehaviour
 {
     [SerializeField] GameObject _objectToMove;
+    [SerializeField] GameObject _objectToActivate;
     [SerializeField] bool _hasToBePlayer;
     [SerializeField] bool _hasToStay;
     [SerializeField] bool _isPressed;
@@ -13,7 +15,12 @@ public class PresurePlate : MonoBehaviour
     [SerializeField] private bool _isArena = false;
     public NavMeshObstacle[] navMeshObstacles;
 
+   
+
     [SerializeField] AudioClip _pressedSFX;
+    [SerializeField] private PlayableDirector _directorToPlay;
+
+    private bool _wasPressed;
 
     private void Update()
     {
@@ -40,11 +47,18 @@ public class PresurePlate : MonoBehaviour
            
             _isPressed = true;
 
-
             foreach (NavMeshObstacle obstacle in navMeshObstacles)
             {
                 if (obstacle) obstacle.enabled = false;
             }
+
+            if (_wasPressed) return;
+
+            if (_objectToActivate != null) _objectToActivate.SetActive(true);
+
+            #region Arena
+
+            // Arena script
 
             if (!_isArena) return;
 
@@ -54,6 +68,13 @@ public class PresurePlate : MonoBehaviour
             }
 
             _objectToMove.GetComponent<Animator>().Play("DOWN");
+
+            if (_directorToPlay != null)
+            {
+                _directorToPlay.Play();
+            } 
+            #endregion
+
         }
     }
 
@@ -61,6 +82,8 @@ public class PresurePlate : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Box"))
         {
+            _wasPressed = true;
+
             if (_hasToStay)
                 _isPressed = false;
         }

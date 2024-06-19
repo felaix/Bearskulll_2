@@ -2,6 +2,7 @@ using BayatGames.SaveGameFree;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class KnightController : MonoBehaviour
@@ -22,6 +23,9 @@ public class KnightController : MonoBehaviour
     [SerializeField] private Ease _ease;
     //[SerializeField] private GameObject _enemyPrefab;
 
+    [Header("Level 5")]
+    [SerializeField] private GameObject _lvl5object; // planned
+ 
     private Health _healthComp;
     private Fighter _fighterComp;
     private Enemy _enemyComp;
@@ -31,6 +35,8 @@ public class KnightController : MonoBehaviour
 
     private bool _triggered;
     private bool _isEnglish;
+
+    private int state = 0;
 
     [SerializeField] private List<DialogueMultiLanguage> _dialogues = new();
 
@@ -67,21 +73,27 @@ public class KnightController : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _player = other.GetComponent<Player>();
+            _triggered = false;
+        }
+    }
+
 
     private IEnumerator BossBehaviour()
     {
-        TriggerNextDialogue(0);
 
-        int state = 0;
-        Debug.Log("state 0");
+        Debug.Log("coroutine start");
 
         while (state == 0)
         {
-            Debug.Log("still state 0");
             if (_healthComp._curHP == _maxHP)
             {
+                Debug.Log(" State 0 - Blocking.");
                 _animator.Play("BlockPose");
-                Debug.Log("Play block pose");
                 yield return new WaitForSeconds(_animDelay);
             }
             else state = 1;
@@ -89,7 +101,8 @@ public class KnightController : MonoBehaviour
 
         while (state == 1)
         {
-            Debug.Log("Boss HP: " + _healthComp._curHP);
+            //Debug.Log("Boss HP: " + _healthComp._curHP);
+            Debug.Log(" State 1");
 
             if (_healthComp._curHP < _maxHP - 5)
             {
@@ -135,23 +148,59 @@ public class KnightController : MonoBehaviour
 
         while (state == 2)
         {
+            Debug.Log("State 2");
+
             _movementComp.StartMoveAction(_destinations[0].position, 1);
+
+            yield return new WaitForSeconds(_animDelay);
+
+            WaveController.Instance.StartWave();
+
             state = 3;
+            yield return new WaitForSeconds(20);
         }
 
         while (state == 3)
         {
             //transform.LookAt(_player.transform);
-            Debug.Log("knight state 3");
-            WaveController.Instance.StartWave();
+            Debug.Log("State 3");
+            transform.LookAt(_player.transform);
+            //WaveController.Instance.StartWave();
             state = 4;
+            yield return new WaitForSeconds(20);
+        }
+
+        while (state == 4)
+        {
+            Debug.Log("State 4 and triggered!!!");
+
+            _animator.Play("BlockPose");
+
+            transform.LookAt(_player.transform);
+
+            if (_lvl5object != null) { _lvl5object.SetActive(true); }
+
+            if (_triggered) 
+            { 
+                TriggerNextDialogue(2);
+                state = 5;
+            }
+
             yield return new WaitForSeconds(_animDelay);
         }
 
-        if (state == 4)
+        while (state == 5)
         {
-            Debug.Log("knight state 4");
+            _movementComp.StartMoveAction(_destinations[1].position, 1);
+            WaveController.Instance.StartWave();
+            state = 6;
+            Debug.Log("knight state 5");
+            yield return null;
+        }
 
+        if (state == 6)
+        {
+            _movementComp.StartMoveAction(_destinations[2].position, 1);
             yield return null;
         }
 
@@ -171,7 +220,6 @@ public class KnightController : MonoBehaviour
 
         DialogBoxText.instance.TriggerDialog();
     }
-
 
 }
 

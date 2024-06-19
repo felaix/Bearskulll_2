@@ -19,6 +19,7 @@ public class WaveController : MonoBehaviour
     // Start & End
     public Action StartWave;
     public Action EndWave;
+    public Action StopWave;
 
     public void KilledEnemy()
     {

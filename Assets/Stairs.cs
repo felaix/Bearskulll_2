@@ -24,8 +24,8 @@ public class Stairs : MonoBehaviour
     {
         spawned = !spawned;
 
-        if (!spawned) { _animator.Play("UP"); Debug.Log("UP STAIRS"); DeactivateObstacles(); }
-        else { _animator.Play("DOWN"); Debug.Log("DOWN STAIRS"); ActivateObstacles(); }
+        if (!spawned) { _animator.Play("UP"); DeactivateObstacles(); }
+        else { _animator.Play("DOWN"); ActivateObstacles(); }
     }
 
     private void DeactivateObstacles()

@@ -12,17 +12,26 @@ public class SpawnController : MonoBehaviour
 
     private List<GameObject> _enemies = new List<GameObject>();
 
+    private Coroutine spawnLoop;
+
     private void Start()
     {
         playerT = GameObject.FindGameObjectWithTag("Player").transform;
         WaveController.Instance.StartWave += TriggerWave;
+        WaveController.Instance.StopWave += StopWave;
     }
 
+    private void StopWave()
+    {
+        StopCoroutine(spawnLoop);
+        //_enemies.ForEach(e => { e.GetComponent<Health>().TakeDamage(9999, false); });
+        //_enemies.Clear();
+    }
     private void TriggerWave()
     {
         if (WaveController.Instance != null) spawnAmount = WaveController.Instance.GetCurrentWaveCount();
-        Debug.Log("Spawn amount:" + spawnAmount);
-        StartCoroutine(SpawnEnemies());
+        //Debug.Log("Spawn amount:" + spawnAmount);
+        spawnLoop = StartCoroutine(SpawnEnemies());
     }
 
     private IEnumerator SpawnEnemies()
@@ -43,7 +52,7 @@ public class SpawnController : MonoBehaviour
 
     private GameObject SpawnEnemy()
     {
-        Debug.Log("Spawn Enemy");
+        //Debug.Log("Spawn Enemy");
         return Instantiate(enemyPrefab, GetSpawnPointNearPlayer(), Quaternion.identity);
     }
 
