@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class SpawnController : MonoBehaviour
@@ -7,12 +8,14 @@ public class SpawnController : MonoBehaviour
     private Transform playerT;
     public float spawnRadius = 5.0f;
     public GameObject enemyPrefab;
+    public GameObject enemyPortalPrefab;
 
     private int spawnAmount = 1;
 
     private List<GameObject> _enemies = new List<GameObject>();
 
     private Coroutine spawnLoop;
+    private Transform _currentPortal;
 
     private void Start()
     {
@@ -27,10 +30,15 @@ public class SpawnController : MonoBehaviour
         //_enemies.ForEach(e => { e.GetComponent<Health>().TakeDamage(9999, false); });
         //_enemies.Clear();
     }
-    private void TriggerWave()
+    private async void TriggerWave()
     {
         if (WaveController.Instance != null) spawnAmount = WaveController.Instance.GetCurrentWaveCount();
         //Debug.Log("Spawn amount:" + spawnAmount);
+
+        await Task.Delay(1000);
+
+        _currentPortal = SpawnPortal();
+
         spawnLoop = StartCoroutine(SpawnEnemies());
     }
 
@@ -50,10 +58,16 @@ public class SpawnController : MonoBehaviour
         }
     }
 
+    private Transform SpawnPortal()
+    {
+        Vector3 correctedSpawnPoint = GetSpawnPointNearPlayer() + new Vector3(0, 2, 0);
+        return Instantiate(enemyPortalPrefab, correctedSpawnPoint, Quaternion.identity).transform;
+    }
+
     private GameObject SpawnEnemy()
     {
         //Debug.Log("Spawn Enemy");
-        return Instantiate(enemyPrefab, GetSpawnPointNearPlayer(), Quaternion.identity);
+        return Instantiate(enemyPrefab, _currentPortal.position, Quaternion.identity);
     }
 
     private Vector3 GetSpawnPointNearPlayer()

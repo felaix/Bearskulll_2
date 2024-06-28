@@ -6,7 +6,7 @@ public class Stairs : MonoBehaviour
 {
     [SerializeField] private List<NavMeshObstacle> _obstacles;
     private Animator _animator;
-    private bool spawned;
+    //private bool spawned;
 
     private void Awake()
     {
@@ -14,17 +14,17 @@ public class Stairs : MonoBehaviour
 
     private void Start()
     {
-        WaveController.Instance.StartWave += SpawnStairs;
-        WaveController.Instance.EndWave += SpawnStairs;
+        WaveController.Instance.StartWave += () => SpawnStairs(false);
+        WaveController.Instance.EndWave += () => SpawnStairs(true);
 
         _animator = GetComponent<Animator>();
     }
 
-    private void SpawnStairs()
+    private void SpawnStairs(bool spawn)
     {
-        spawned = !spawned;
+        //spawned = !spawned;
 
-        if (!spawned) { _animator.Play("UP"); DeactivateObstacles(); }
+        if (spawn) { _animator.Play("UP"); DeactivateObstacles(); }
         else { _animator.Play("DOWN"); ActivateObstacles(); }
     }
 

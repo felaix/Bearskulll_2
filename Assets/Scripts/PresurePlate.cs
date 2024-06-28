@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Playables;
+using DG.Tweening;
 
 public class PresurePlate : MonoBehaviour
 {
+    [Header("Objects")]
     [SerializeField] GameObject _objectToMove;
     [SerializeField] GameObject _objectToActivate;
+
+    [Header("Conditions")]
     [SerializeField] bool _hasToBePlayer;
     [SerializeField] bool _hasToStay;
     [SerializeField] bool _isPressed;
     [SerializeField] bool _startWave;
-    [SerializeField] private bool _isArena = false;
+
     public NavMeshObstacle[] navMeshObstacles;
 
-   
+    [Header("Arena")]
+    [SerializeField] private bool _isArena = false;
+    [SerializeField] private bool _useDG = false; // DG stands for DG Tweening. Using DG means NOT to use animator but use DG.Tweening instead
 
+    [Header("Sound & Cinematics")]
     [SerializeField] AudioClip _pressedSFX;
     [SerializeField] private PlayableDirector _directorToPlay;
 
@@ -62,12 +69,18 @@ public class PresurePlate : MonoBehaviour
 
             if (!_isArena) return;
 
+
             if (_startWave)
             {
                 WaveController.Instance.StartWave();
             }
 
-            _objectToMove.GetComponent<Animator>().Play("DOWN");
+            if (_useDG)
+            {
+                Debug.Log("Move Obj DG " + _objectToMove);
+                _objectToMove.transform.DOMoveY(-5, 2f);
+            }
+            else { _objectToMove.GetComponent<Animator>().Play("DOWN"); }
 
             if (_directorToPlay != null)
             {

@@ -189,18 +189,17 @@ public class KnightController : MonoBehaviour
             yield return new WaitForSeconds(_animDelay);
         }
 
-        while (state == 5)
+        if (state == 5)
         {
             _movementComp.StartMoveAction(_destinations[1].position, 1);
+            Debug.Log("Trigger start wave state 5");
             WaveController.Instance.StartWave();
             state = 6;
-            Debug.Log("knight state 5");
             yield return null;
         }
 
         if (state == 6)
         {
-            _movementComp.StartMoveAction(_destinations[2].position, 1);
             yield return null;
         }
 

@@ -1,11 +1,9 @@
 using System;
-using System.ComponentModel;
 using UnityEngine;
 
 [DefaultExecutionOrder(0)]
 public class WaveController : MonoBehaviour
 {
-
     public static WaveController Instance { get; private set; }
 
     private int currentWave = 1;
