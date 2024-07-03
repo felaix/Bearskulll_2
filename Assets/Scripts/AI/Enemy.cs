@@ -34,6 +34,11 @@ public class Enemy : MonoBehaviour
         if (EnemyCounter.Instance != null) EnemyCounter.Instance.AddEnemy(this);
     }
 
+    public void SetChaseDistance(float chaseDistance)
+    {
+        _chaseDistance = chaseDistance;
+    }
+
     private void Update()
     {
 

@@ -25,6 +25,9 @@ public class KnightController : MonoBehaviour
 
     [Header("Level 5")]
     [SerializeField] private GameObject _lvl5object; // planned
+    [SerializeField] private GameObject _flameFX1;
+    [SerializeField] private GameObject _flameFX2;
+    [SerializeField] private GameObject _flameFX3;
  
     private Health _healthComp;
     private Fighter _fighterComp;
@@ -195,12 +198,103 @@ public class KnightController : MonoBehaviour
             Debug.Log("Trigger start wave state 5");
             WaveController.Instance.StartWave();
             state = 6;
-            yield return null;
+            yield return new WaitForSeconds(10);
         }
 
         if (state == 6)
         {
-            yield return null;
+
+            if (_triggered)
+            {
+                TriggerNextDialogue(3);
+                state = 7;
+            }
+
+            yield return new WaitForSeconds(_animDelay);
+        }
+
+        if (state == 7)
+        {
+            _movementComp.maxSpeed = 3;
+
+            _fighterComp.enabled = true;
+            _enemyComp.enabled = true;
+            yield return new WaitForSeconds(1.5f);
+
+            _fighterComp.enabled = false;
+            _enemyComp.enabled = false;
+            _animator.Play("BlockPose");
+
+            yield return new WaitForSeconds(1.5f);
+
+            state = 8;
+        }
+
+        if (state == 8)
+        {
+            _movementComp.maxSpeed = 4;
+
+            yield return new WaitForSeconds(1.5f);
+
+            _fighterComp.enabled = true;
+            _enemyComp.enabled = true;
+
+            state = 9;
+        }
+
+        if (state == 9)
+        {
+            _animator.Play("Skill");
+            Instantiate(_flameFX1, this.transform);
+            state = 10;
+        }
+
+        if (state == 10)
+        {
+            Instantiate(_flameFX2, this.transform);
+            _animator.Play("Attack 1");
+            state = 11;
+            yield return new WaitForSeconds(1.5f);
+        }
+
+        if (state == 11)
+        {
+            Instantiate(_flameFX3, this.transform);
+            yield return new WaitForSeconds(1.5f);
+            state = 12;
+        }
+
+        if (state == 12)
+        {
+            _fighterComp.enabled = false;
+            _enemyComp.enabled = false;
+            _animator.Play("Block");
+            yield return new WaitForSeconds(2f);
+            state = 13;
+        }
+
+        if (state == 13)
+        {
+            _fighterComp.enabled = true;
+            _enemyComp.enabled = true;
+            _animator.Play("Skill");
+            Instantiate(_flameFX1, this.transform);
+            state = 14;
+        }
+
+        if (state == 14)
+        {
+            Instantiate(_flameFX3, this.transform);
+            yield return new WaitForSeconds(1.5f);
+            state = 15;
+        }
+
+        if (state == 15)
+        {
+            Instantiate(_flameFX2, this.transform);
+            _animator.Play("Attack 1");
+            state = 16;
+            yield return new WaitForSeconds(1.5f);
         }
 
         yield return null;

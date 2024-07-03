@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ public class SpawnController : MonoBehaviour
 {
     private Transform playerT;
     public float spawnRadius = 5.0f;
+    [Range(5, 20)] public float enemyChaseRadius = 10.0f;
+    [Range(0, 1)] public float spawnDelay = 1.0f; 
     public GameObject enemyPrefab;
     public GameObject enemyPortalPrefab;
 
@@ -22,6 +25,12 @@ public class SpawnController : MonoBehaviour
         playerT = GameObject.FindGameObjectWithTag("Player").transform;
         WaveController.Instance.StartWave += TriggerWave;
         WaveController.Instance.StopWave += StopWave;
+        WaveController.Instance.EndWave += EndWave;
+    }
+
+    private void EndWave()
+    {
+        _currentPortal.DOScale(Vector3.zero, 1.25f);
     }
 
     private void StopWave()
@@ -53,8 +62,9 @@ public class SpawnController : MonoBehaviour
         {
             x++;
             GameObject enemy = SpawnEnemy();
+            enemy.GetComponent<Enemy>().SetChaseDistance(enemyChaseRadius);
             _enemies.Add(enemy);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(spawnDelay);
         }
     }
 
